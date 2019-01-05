@@ -3,10 +3,11 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform playerTransform;
-    //public int depth = -20;
 
-    void Update()
+    public Transform playerTransform;
+
+
+   void Update()
     {
         if (playerTransform != null)
         {
