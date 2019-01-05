@@ -9,6 +9,7 @@ public class MousePlayerController : NetworkBehaviour {
     Vector3 forward, right;
 
    Animator PlayerAnim;
+    bool bl_walk = false;
 
     public override void OnStartLocalPlayer()
     {
@@ -19,13 +20,13 @@ public class MousePlayerController : NetworkBehaviour {
     // Use this for initialization
     void Start () {
 
-            //if (!isLocalPlayer)
-            //{
-            //    Destroy(transform.Find("CameraTarget").gameObject);
-            //    transform.Find("MouseLOD0").gameObject.GetComponent<Renderer>().material.color = Color.red;
+            if (!isLocalPlayer)
+            {
+                //Destroy(transform.Find("CameraTarget").gameObject);
+                //transform.Find("MouseLOD0").gameObject.GetComponent<Renderer>().material.color = Color.red;
 
-            //    return;
-            //}
+                return;
+            }
 
 
         forward = Camera.main.transform.forward; // set forward vector to equal camera's forward vector
@@ -37,13 +38,15 @@ public class MousePlayerController : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        PlayerAnim.SetBool("bl_walk", false);
-
-        if (Input.GetAxis("HorizontalKey") != 0 || (Input.GetAxis("VerticalKey") != 0))
+        if(isLocalPlayer)
         {
-            Move();
-            PlayerAnim.SetBool("bl_walk", true);
+            PlayerAnim.SetBool("bl_walk", false);
+
+            if (Input.GetAxis("HorizontalKey") != 0 || (Input.GetAxis("VerticalKey") != 0))
+            {
+                Move();
+                PlayerAnim.SetBool("bl_walk", true);
+            }
         }
 
     }
