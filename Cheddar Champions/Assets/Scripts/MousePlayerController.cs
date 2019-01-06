@@ -9,7 +9,7 @@ public class MousePlayerController : NetworkBehaviour {
     Vector3 forward, right;
 
    Animator PlayerAnim;
-    bool bl_walk = false;
+    //bool bl_walk = false;
 
     public Joystick joystick = null;
 
@@ -24,7 +24,7 @@ public class MousePlayerController : NetworkBehaviour {
 
             if (!isLocalPlayer)
             {
-                //Destroy(transform.Find("CameraTarget").gameObject);
+                //Destroy(GameObject.Find("Canvas").gameObject);
                 //transform.Find("MouseLOD0").gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
 
                 return;
