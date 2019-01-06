@@ -167,6 +167,7 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15dc08ee92faae4c95661fcf8be2d0a, type: 2}
   m_IsPrefabAsset: 0
+<<<<<<< HEAD
 --- !u!1 &202151110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1460025654154030, guid: e72a9fd071d0b7945a5654b487374598,
@@ -294,6 +295,8 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e72a9fd071d0b7945a5654b487374598, type: 2}
   m_IsPrefabAsset: 0
+=======
+>>>>>>> parent of db5a7a9... Initial Mobile Support
 --- !u!1 &835791779
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,28 +363,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+<<<<<<< HEAD
 --- !u!1 &1040886075
+=======
+--- !u!1 &971168346
+>>>>>>> parent of db5a7a9... Initial Mobile Support
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 1040886078}
   - component: {fileID: 1040886077}
   - component: {fileID: 1040886076}
   m_Layer: 0
   m_Name: EventSystem
+=======
+  - component: {fileID: 971168348}
+  - component: {fileID: 971168347}
+  m_Layer: 0
+  m_Name: Player 1 Spawn Location
+>>>>>>> parent of db5a7a9... Initial Mobile Support
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!114 &1040886076
+=======
+--- !u!114 &971168347
+>>>>>>> parent of db5a7a9... Initial Mobile Support
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1040886075}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -410,10 +429,20 @@ MonoBehaviour:
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1040886078
+=======
+  m_GameObject: {fileID: 971168346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1050975500, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &971168348
+>>>>>>> parent of db5a7a9... Initial Mobile Support
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1040886075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -421,6 +450,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+=======
+  m_GameObject: {fileID: 971168346}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2073099443}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+>>>>>>> parent of db5a7a9... Initial Mobile Support
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1236105714
 GameObject:
@@ -469,7 +508,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 408440fec55c933439d34e9ba031f9ac, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

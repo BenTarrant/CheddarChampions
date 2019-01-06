@@ -476,6 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Cheddar Champions/Assets/PlayerCharacter.prefab
   m_Animator: {fileID: 95099625539398814}
   m_ParameterSendBits: 0
   param0: 
@@ -485,6 +486,10 @@ MonoBehaviour:
   param4: 
   param5: 
 --- !u!114 &114185936966865686
+=======
+  moveSpeed: 3
+--- !u!114 &114534493790977982
+>>>>>>> parent of db5a7a9... Initial Mobile Support:Cheddar Champions/Assets/MousePlayer.prefab
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
