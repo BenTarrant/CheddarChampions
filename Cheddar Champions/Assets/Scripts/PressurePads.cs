@@ -15,7 +15,6 @@ public class PressurePads : MonoBehaviour
     public LayerMask m_LayerMask; // for collision layering
     bool RoomGenerated = false;
 
-    public GameObject testGO;
 
     void Start()
     {
@@ -44,7 +43,6 @@ public class PressurePads : MonoBehaviour
             if (hitColliders.Length > 0 && !RoomGenerated)
             {
                 print("Generating Object");
-                Instantiate(testGO);
                 RoomGenerated = true;
             }
 

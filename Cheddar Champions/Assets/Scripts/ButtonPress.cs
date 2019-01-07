@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ButtonPress : MonoBehaviour
 {
     public Button EatButton;
-    public static bool buttonPressed;
+    public MousePlayerController PC_Script;
 
     void Start()
     {
@@ -18,8 +18,8 @@ public class ButtonPress : MonoBehaviour
     {
         //Output this to console when Button is clicked
         //Debug.Log("You have clicked the button!");
-
-        print("Pressed");
+        PC_Script.Consume();
+        //print("Pressed");
     }
 
     }

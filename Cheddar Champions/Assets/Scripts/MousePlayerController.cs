@@ -7,10 +7,11 @@ public class MousePlayerController : NetworkBehaviour {
 
     public float moveSpeed = 4f;
     Vector3 forward, right;
-
-   Animator PlayerAnim;
-    //bool bl_walk = false;
-
+    public EatCheese eatTheCheese;
+    Animator PlayerAnim;
+    public static bool _isPlayerWithinZone;
+    //private Vector3 size;
+    //private float cheeseScale = 1.0f;
     public Joystick joystick = null;
 
     public override void OnStartLocalPlayer()
@@ -25,24 +26,27 @@ public class MousePlayerController : NetworkBehaviour {
             if (!isLocalPlayer)
             {
 
-                //Destroy(GameObject.Find("Canvas").gameObject);
-                //transform.Find("MouseLOD0").gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
-
                 return;
             }
+       
+        
 
         GameObject Fixedjoystick = GameObject.FindGameObjectWithTag("Joystick") as GameObject;
         joystick = Fixedjoystick.GetComponent<Joystick>();
+        _isPlayerWithinZone = false;
 
-        //forward = Camera.main.transform.forward; // set forward vector to equal camera's forward vector
-        //forward.y = 0; //ensure our y value always set to 0
-        //forward = Vector3.Normalize(forward); //making sure the vector is set to 1 for motion
-        //right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward; // creates a rotation for our right vector, rotated 90 degrees around the x axis.
+
+
+        //BASIC PC MOVEMENT CONTROLS FOR DEGUGGING AND BUILD TESTING ------ TO BE REMOVED
+        forward = Camera.main.transform.forward; // set forward vector to equal camera's forward vector
+        forward.y = 0; //ensure our y value always set to 0
+        forward = Vector3.Normalize(forward); //making sure the vector is set to 1 for motion
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward; // creates a rotation for our right vector, rotated 90 degrees around the x axis.
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
         if(isLocalPlayer)
         {
@@ -52,25 +56,79 @@ public class MousePlayerController : NetworkBehaviour {
 
             if (moveVector != Vector3.zero)
             {
-                //Move();
+                
                 PlayerAnim.SetBool("bl_walk", true);
                 transform.rotation = Quaternion.LookRotation(moveVector);
                 transform.Translate(moveVector * moveSpeed * Time.deltaTime, Space.World);
+            }
+
+            //BASIC PC MOVEMENT CONTROLS FOR DEGUGGING AND BUILD TESTING ------ TO BE REMOVED
+
+            if (Input.GetAxis("HorizontalKey") != 0)
+            {
+                Move();
+                PlayerAnim.SetBool("bl_walk", true);
+            }
+
+            if (Input.GetAxis("VerticalKey") != 0)
+            {
+                Move();
+                PlayerAnim.SetBool("bl_walk", true);
             }
         }
 
     }
 
-    //void Move()
-    //{
-    //    Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")); // new direction equals values specified in input manager
-    //    Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
-    //    Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey");
+    public void Consume()
+    {
+        if (_isPlayerWithinZone)
+        {
+            print("Eating");
+        }
 
-    //    Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-    //    transform.forward = heading;
-    //    transform.position += rightMovement; // sets the left/right movement of the player to be where the input Vector3 dictates
-    //    transform.position += upMovement; // sets the up/down movement of the player to be where the input Vector3 dictates
+        else
+        {
+            print("not able to eat");
+        }
 
-    //}
+
+    }
+
+    //BASIC PC MOVEMENT CONTROLS FOR DEGUGGING AND BUILD TESTING ------ TO BE REMOVED
+    void Move()
+    {
+        Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")); // new direction equals values specified in input manager
+        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
+        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey");
+        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
+        transform.forward = heading;
+        transform.position += rightMovement; // sets the left/right movement of the player to be where the input Vector3 dictates
+        transform.position += upMovement; // sets the up/down movement of the player to be where the input Vector3 dictates
+
+    }
+
+
+
+    // PLAYER NEAR/ EATING CHEESE
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Cheese") // if the player triggers
+        {
+            _isPlayerWithinZone = true; // set boolean to true
+            //print(other.gameObject.name);
+        }
+
+    }
+
+    void OnTriggerExit(Collider other) // when trigger leaves collision
+    {
+        if (other.tag == "Cheese") // ensure it's the player leaving
+        {
+            _isPlayerWithinZone = false; // set boolean to false
+
+        }
+
+    }
+
 }
