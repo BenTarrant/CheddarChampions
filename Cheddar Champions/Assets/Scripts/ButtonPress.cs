@@ -7,19 +7,24 @@ public class ButtonPress : MonoBehaviour
 {
     public Button EatButton;
     public MousePlayerController PC_Script;
+    public bool InZone;
 
     void Start()
     {
         //Calls the TaskOnClick/TaskWithParameters/ButtonClicked method when you click the Button
         EatButton.onClick.AddListener(TaskOnClick);
+        
+    }
+
+     void Update()
+    {
+        
     }
 
     public void TaskOnClick()
     {
-        //Output this to console when Button is clicked
-        //Debug.Log("You have clicked the button!");
-        PC_Script.Consume();
-        //print("Pressed");
+       PC_Script.Consume();
+  
     }
 
     }

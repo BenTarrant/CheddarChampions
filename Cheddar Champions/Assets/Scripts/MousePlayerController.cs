@@ -7,17 +7,27 @@ public class MousePlayerController : NetworkBehaviour {
 
     public float moveSpeed = 4f;
     Vector3 forward, right;
-    public EatCheese eatTheCheese;
+
+
     Animator PlayerAnim;
     public static bool _isPlayerWithinZone;
     //private Vector3 size;
     //private float cheeseScale = 1.0f;
     public Joystick joystick = null;
 
+
+
+    //Variables for extrusion
+    public Material material;
+    [Header("Extrusion Level")]
+    [Range(0, 0.08f)]
+    public float maxExtrusionAmount = 0.08f;
+
     public override void OnStartLocalPlayer()
     {
         Camera.main.GetComponentInParent<CameraFollow>().setTarget(gameObject.transform);
         PlayerAnim = GetComponent<Animator>();
+        gameObject.GetComponent <NetworkAnimator> ().SetParameterAutoSend(0, true);
     }
 
     // Use this for initialization
@@ -83,6 +93,8 @@ public class MousePlayerController : NetworkBehaviour {
     {
         if (_isPlayerWithinZone)
         {
+            GameManager.sGM.score++;
+            //PlayerAnim.SetBool("bl_eating", true);
             print("Eating");
         }
 
@@ -97,7 +109,7 @@ public class MousePlayerController : NetworkBehaviour {
     //BASIC PC MOVEMENT CONTROLS FOR DEGUGGING AND BUILD TESTING ------ TO BE REMOVED
     void Move()
     {
-        Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")); // new direction equals values specified in input manager
+        //Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")); // new direction equals values specified in input manager
         Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
         Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey");
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
