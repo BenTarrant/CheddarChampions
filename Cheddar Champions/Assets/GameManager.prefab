@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4734941873606274}
   - component: {fileID: 114663823281206350}
+  - component: {fileID: 114321767951013860}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -40,6 +41,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114321767951013860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1633994748084888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 40
+    i1: 14
+    i2: 30
+    i3: 144
+    i4: 114
+    i5: 236
+    i6: 237
+    i7: 116
+    i8: 41
+    i9: 175
+    i10: 168
+    i11: 51
+    i12: 186
+    i13: 101
+    i14: 179
+    i15: 195
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114663823281206350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,13 +84,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b278f2ad87dcc44952ff1f5a84017e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Score: 0
-  Crumbs: {fileID: 0}
-  timePassed: 0
+  Crumbs: {fileID: 1661644869239872, guid: 7bec52361a229364fab72dff895d37b9, type: 2}
+  timeLeft: 60
   Timertext: {fileID: 0}
-  BestTime: {fileID: 0}
-  StartBarriers: {fileID: 0}
-  FinalSpawners: {fileID: 0}
-  Shortcut: {fileID: 0}
+  BestScore: {fileID: 0}
+  ScoreText: {fileID: 0}
   score: 0
   highScore: 0

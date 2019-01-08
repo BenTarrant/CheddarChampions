@@ -13,7 +13,6 @@ public class PressurePads : MonoBehaviour
 {
     bool m_Started; // for gizmo drawing
     public LayerMask m_LayerMask; // for collision layering
-    bool RoomGenerated = false;
 
 
     void Start()
@@ -40,10 +39,9 @@ public class PressurePads : MonoBehaviour
             //Increase the number of Colliders in the array
             i++;
 
-            if (hitColliders.Length > 0 && !RoomGenerated)
+            if (hitColliders.Length > 0)
             {
-                print("Generating Object");
-                RoomGenerated = true;
+                print("Deactivating Barrier");
             }
 
             yield return new WaitForSeconds(10f);
