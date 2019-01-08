@@ -13,7 +13,7 @@ public class MousePlayerController : NetworkBehaviour {
     public static bool _isPlayerWithinZone;
     //private Vector3 size;
     //private float cheeseScale = 1.0f;
-    public Joystick joystick = null;
+    public Joystick joystick;
 
 
 
@@ -25,6 +25,9 @@ public class MousePlayerController : NetworkBehaviour {
 
     public override void OnStartLocalPlayer()
     {
+        
+        _isPlayerWithinZone = false;
+
         Camera.main.GetComponentInParent<CameraFollow>().setTarget(gameObject.transform);
         PlayerAnim = GetComponent<Animator>();
         gameObject.GetComponent <NetworkAnimator> ().SetParameterAutoSend(0, true);
@@ -33,19 +36,15 @@ public class MousePlayerController : NetworkBehaviour {
     // Use this for initialization
     void Start () {
 
-            if (!isLocalPlayer)
-            {
 
-                return;
-            }
-       
-        
+        if (!isLocalPlayer)
+        {
+            print("not local Player");
+            return;
+        }
 
         GameObject Fixedjoystick = GameObject.FindGameObjectWithTag("Joystick") as GameObject;
-        joystick = Fixedjoystick.GetComponent<Joystick>();
-        _isPlayerWithinZone = false;
-
-
+        joystick = FindObjectOfType<Joystick>();
 
         //BASIC PC MOVEMENT CONTROLS FOR DEGUGGING AND BUILD TESTING ------ TO BE REMOVED
         forward = Camera.main.transform.forward; // set forward vector to equal camera's forward vector
@@ -53,12 +52,14 @@ public class MousePlayerController : NetworkBehaviour {
         forward = Vector3.Normalize(forward); //making sure the vector is set to 1 for motion
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward; // creates a rotation for our right vector, rotated 90 degrees around the x axis.
 
+
     }
 
     // Update is called once per frame
     void Update ()
     {
-        if(isLocalPlayer)
+
+        if (isLocalPlayer)
         {
             PlayerAnim.SetBool("bl_walk", false);
 

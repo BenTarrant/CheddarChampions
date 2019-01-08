@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4146346157036694
 Transform:
   m_ObjectHideFlags: 1
@@ -55,7 +55,7 @@ MonoBehaviour:
   manager: {fileID: 0}
   showGUI: 1
   offsetX: 0
-  offsetY: 0
+  offsetY: 80
 --- !u!114 &114631061494045874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,7 +82,8 @@ MonoBehaviour:
   m_PlayerSpawnMethod: 1
   m_OfflineScene: 
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 1653224989988508, guid: d23932beefbd81e4cad4e3b644a38d71, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:

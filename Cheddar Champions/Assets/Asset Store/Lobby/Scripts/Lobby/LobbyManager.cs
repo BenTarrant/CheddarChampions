@@ -11,6 +11,8 @@ namespace Prototype.NetworkLobby
 {
     public class LobbyManager : NetworkLobbyManager 
     {
+
+
         static short MsgKicked = MsgType.Highest + 1;
 
         static public LobbyManager s_Singleton;
@@ -331,6 +333,7 @@ namespace Prototype.NetworkLobby
 
             if (_lobbyHooks)
                 _lobbyHooks.OnLobbyServerSceneLoadedForPlayer(this, lobbyPlayer, gamePlayer);
+
 
             return true;
         }
