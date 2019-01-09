@@ -64,3 +64,4 @@ MonoBehaviour:
   rightRooms:
   - {fileID: 1791103420815352, guid: d7223674dd4eb8f41bb3617006982105, type: 2}
   - {fileID: 1996688961836492, guid: 26c2c254c52978c41b0635e35183b514, type: 2}
+  closedRoom: {fileID: 0}

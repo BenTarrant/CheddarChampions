@@ -37,33 +37,47 @@ public class RoomSpawner : MonoBehaviour {
             {
                 //Spawn room with TOP door
                 random = Random.Range(0, templates.topRooms.Length);
-                Instantiate(templates.topRooms[random], transform.position, templates.topRooms[random].transform.rotation);
+                Instantiate(templates.topRooms[random], transform.position, Quaternion.identity);
             }
 
             else if (openingDirection == 3)
             {
                 //Spawn room with LEFT door
                 random = Random.Range(0, templates.leftRooms.Length);
-                Instantiate(templates.leftRooms[random], transform.position, templates.leftRooms[random].transform.rotation);
+                Instantiate(templates.leftRooms[random], transform.position, Quaternion.identity);
             }
 
             else if (openingDirection == 4)
             {
                 //Spawn room with RIGHT door
                 random = Random.Range(0, templates.rightRooms.Length);
-                Instantiate(templates.rightRooms[random], transform.position, templates.rightRooms[random].transform.rotation);
+                Instantiate(templates.rightRooms[random], transform.position, Quaternion.identity);
             }
 
             spawned = true;
+            Destroy(gameObject);
+
         }
 
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("SpawnPoint") && other.GetComponent<RoomSpawner>().spawned == true)
+        if (other.CompareTag("SpawnPoint"))
+        {
+            if(other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
+            {
+                //Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+
+            spawned = true;
+        }
+
+        else
         {
             Destroy(gameObject);
         }
+        
     }
 }
