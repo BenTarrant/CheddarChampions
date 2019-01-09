@@ -36,6 +36,7 @@ namespace Prototype.NetworkLobby
         protected RectTransform currentPanel;
 
         public Button backButton;
+        
 
         public Text statusInfo;
         public Text hostInfo;
@@ -61,7 +62,7 @@ namespace Prototype.NetworkLobby
             _lobbyHooks = GetComponent<Prototype.NetworkLobby.LobbyHook>();
             currentPanel = mainMenuPanel;
 
-            backButton.gameObject.SetActive(false);
+            backButton.gameObject.SetActive(false); // set to true so we can return to the main menu options when lobby manager fixed
             GetComponent<Canvas>().enabled = true;
 
             DontDestroyOnLoad(gameObject);
@@ -162,6 +163,10 @@ namespace Prototype.NetworkLobby
         public BackButtonDelegate backDelegate;
         public void GoBackButton()
         {
+            Scene currentScene = SceneManager.GetActiveScene(); // get the current scene to handle scene changes with back button calls
+            string sceneName = currentScene.name;  // Retrieve the name of this scene.
+            
+
             backDelegate();
 			topPanel.isInGame = false;
         }
