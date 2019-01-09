@@ -4,13 +4,66 @@ using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public int openingDirection;
+    // 1 = needs a bottom door
+    // 2 = needs a top door
+    // 3 = needs a left door
+    // 4 = needs a right door
+
+    private RoomTemplates templates;
+    private int random;
+    private bool spawned;
+
+    void Start()
+    {
+        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+
+        Invoke("Spawn", 0.1f);
+    }
+
+    void Spawn()
+    {
+
+        if (spawned == false)
+        {
+            if (openingDirection == 1)
+            {
+                //Spawn room with BOTTOM door
+                random = Random.Range(0, templates.bottomRooms.Length);
+                Instantiate(templates.bottomRooms[random], transform.position, Quaternion.identity);
+            }
+
+            else if (openingDirection == 2)
+            {
+                //Spawn room with TOP door
+                random = Random.Range(0, templates.topRooms.Length);
+                Instantiate(templates.topRooms[random], transform.position, templates.topRooms[random].transform.rotation);
+            }
+
+            else if (openingDirection == 3)
+            {
+                //Spawn room with LEFT door
+                random = Random.Range(0, templates.leftRooms.Length);
+                Instantiate(templates.leftRooms[random], transform.position, templates.leftRooms[random].transform.rotation);
+            }
+
+            else if (openingDirection == 4)
+            {
+                //Spawn room with RIGHT door
+                random = Random.Range(0, templates.rightRooms.Length);
+                Instantiate(templates.rightRooms[random], transform.position, templates.rightRooms[random].transform.rotation);
+            }
+
+            spawned = true;
+        }
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("SpawnPoint") && other.GetComponent<RoomSpawner>().spawned == true)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
