@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Joystick
   - Cheese
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
