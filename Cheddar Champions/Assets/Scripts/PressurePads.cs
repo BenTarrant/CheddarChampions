@@ -1,24 +1,24 @@
-﻿//Attach this script to your GameObject. This GameObject doesn’t need to have a Collider component
-//Set the Layer Mask field in the Inspector to the layer you would like to see collisions in (set to Everything if you are unsure).
-//Create a second Gameobject for testing collisions. Make sure your GameObject has a Collider component (if it doesn’t, click on the Add Component button in the GameObject’s Inspector, and go to Physics>Box Collider).
-//Place it so it is overlapping your other GameObject.
-//Press Play to see the console output the name of your second GameObject
-
-//This script uses the OverlapBox that creates an invisible Box Collider that detects multiple collisions with other colliders. The OverlapBox in this case is the same size and position as the GameObject you attach it to (acting as a replacement for the BoxCollider component).
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class PressurePads : MonoBehaviour
 {
     bool m_Started; // for gizmo drawing
     public LayerMask m_LayerMask; // for collision layering
+    public int miceNeeded;
+    // 1 = needs a ONE PLAYER
+    // 2 = needs a TWO PLAYERS
+    // 3 = needs a THREE PLAYERS
+
+    private bool DespawnedDoor;
 
 
     void Start()
     {
         //Use this to ensure that the Gizmos are being drawn when in Play Mode.
         m_Started = true;
+
+       
     }
 
     void FixedUpdate()
@@ -38,11 +38,47 @@ public class PressurePads : MonoBehaviour
             //print("length is: " + hitColliders.Length);
             //Increase the number of Colliders in the array
             i++;
+            MeshCollider col = gameObject.GetComponentInParent<MeshCollider>();
+            
 
-            if (hitColliders.Length > 0)
+            if (hitColliders.Length == 1 && miceNeeded == 1)
             {
                 print("Deactivating Barrier");
+                DespawnedDoor = true;
+                //col.enabled = false;
+                Destroy(transform.parent.gameObject);
             }
+
+           else if (hitColliders.Length == 2 && miceNeeded == 2)
+            {
+                print("Deactivating Barrier");
+                DespawnedDoor = true;
+                Destroy(transform.parent.gameObject);
+            }
+
+            else if (hitColliders.Length == 1 && miceNeeded == 2)
+            {
+                print("Need more mice!");
+            }
+
+            else if (hitColliders.Length == 3 && miceNeeded == 3)
+            {
+                print("Deactivating Barrier");
+                DespawnedDoor = true;
+                Destroy(transform.parent.gameObject);
+            }
+
+            else if (hitColliders.Length == 2 && miceNeeded == 3)
+            {
+                print("Need more mice!");
+            }
+
+            else if (hitColliders.Length == 1 && miceNeeded == 3)
+            {
+                print("Need more mice!");
+            }
+
+
 
             yield return new WaitForSeconds(10f);
 
