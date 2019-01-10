@@ -243,10 +243,10 @@ MeshCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1254298591436864}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 1dc53ed8a587bbd49bc24df80a8abffd, type: 3}
@@ -289,6 +289,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   miceNeeded: 1
+  buttonSqueak: {fileID: 0}
 --- !u!114 &114712342574667436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,3 +305,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   miceNeeded: 1
+  buttonSqueak: {fileID: 0}

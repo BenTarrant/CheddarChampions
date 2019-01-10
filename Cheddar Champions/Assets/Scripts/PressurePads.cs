@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PressurePads : MonoBehaviour
 {
@@ -11,14 +12,14 @@ public class PressurePads : MonoBehaviour
     // 3 = needs a THREE PLAYERS
 
     private bool DespawnedDoor;
-
+    public Button buttonSqueak;
 
     void Start()
     {
         //Use this to ensure that the Gizmos are being drawn when in Play Mode.
         m_Started = true;
+        //buttonSqueak.enabled = false;
 
-       
     }
 
     void FixedUpdate()
@@ -45,7 +46,7 @@ public class PressurePads : MonoBehaviour
             {
                 print("Deactivating Barrier");
                 DespawnedDoor = true;
-                //col.enabled = false;
+                
                 Destroy(transform.parent.gameObject);
             }
 
@@ -59,6 +60,7 @@ public class PressurePads : MonoBehaviour
             else if (hitColliders.Length == 1 && miceNeeded == 2)
             {
                 print("Need more mice!");
+                //buttonSqueak.enabled = true;
             }
 
             else if (hitColliders.Length == 3 && miceNeeded == 3)
@@ -71,14 +73,16 @@ public class PressurePads : MonoBehaviour
             else if (hitColliders.Length == 2 && miceNeeded == 3)
             {
                 print("Need more mice!");
+                //buttonSqueak.enabled = true;
             }
 
             else if (hitColliders.Length == 1 && miceNeeded == 3)
             {
                 print("Need more mice!");
+                //buttonSqueak.enabled = true;
             }
 
-
+            //buttonSqueak.enabled = false;
 
             yield return new WaitForSeconds(10f);
 
