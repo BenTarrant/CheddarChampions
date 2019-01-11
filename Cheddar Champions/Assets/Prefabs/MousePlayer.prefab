@@ -637,7 +637,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
+  gravitymulti: 1000
   joystick: {fileID: 0}
+  isGrounded: 0
   material: {fileID: 2100000, guid: 1bfad820fb2df7f4f90d247438ae01c7, type: 2}
   maxExtrusionAmount: 0.08
 --- !u!114 &114858151315048550
@@ -806,7 +808,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 0.3
   m_Radius: 0.15
-  m_SlopeLimit: 25
+  m_SlopeLimit: 180
   m_StepOffset: 0.02
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0

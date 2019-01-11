@@ -8,6 +8,7 @@ public class MousePlayerController : NetworkBehaviour {
     public float moveSpeed = 4f;
     Vector3 forward, right;
 
+    public float gravitymulti;
 
     Animator PlayerAnim;
     public static bool _isPlayerWithinZone;
@@ -15,7 +16,9 @@ public class MousePlayerController : NetworkBehaviour {
     //private float cheeseScale = 1.0f;
     public Joystick joystick;
 
-
+    public bool isGrounded = false;
+    private CharacterController _controller;
+    //public float gravity = 20.0f;
 
     //Variables for extrusion
     public Material material;
@@ -31,6 +34,7 @@ public class MousePlayerController : NetworkBehaviour {
         Camera.main.GetComponentInParent<CameraFollow>().setTarget(gameObject.transform);
         PlayerAnim = GetComponent<Animator>();
         gameObject.GetComponent <NetworkAnimator> ().SetParameterAutoSend(0, true);
+        _controller = GetComponent<CharacterController>();
     }
 
     // Use this for initialization
@@ -46,13 +50,6 @@ public class MousePlayerController : NetworkBehaviour {
         GameObject Fixedjoystick = GameObject.FindGameObjectWithTag("Joystick") as GameObject;
         joystick = FindObjectOfType<Joystick>();
 
-        //BASIC PC MOVEMENT CONTROLS FOR DEGUGGING AND BUILD TESTING ------ TO BE REMOVED
-        forward = Camera.main.transform.forward; // set forward vector to equal camera's forward vector
-        forward.y = 0; //ensure our y value always set to 0
-        forward = Vector3.Normalize(forward); //making sure the vector is set to 1 for motion
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward; // creates a rotation for our right vector, rotated 90 degrees around the x axis.
-
-
     }
 
     // Update is called once per frame
@@ -62,30 +59,24 @@ public class MousePlayerController : NetworkBehaviour {
         if (isLocalPlayer)
         {
             PlayerAnim.SetBool("bl_walk", false);
-
+            GroundCheck();
             Vector3 moveVector = (Vector3.right * joystick.Horizontal + Vector3.forward * joystick.Vertical);
 
-            if (moveVector != Vector3.zero)
+            if (moveVector != Vector3.zero && isGrounded == true)
             {
                 
                 PlayerAnim.SetBool("bl_walk", true);
                 transform.rotation = Quaternion.LookRotation(moveVector);
-                transform.Translate(moveVector * moveSpeed * Time.deltaTime, Space.World);
+                //transform.Translate
+                _controller.Move(moveVector * moveSpeed * Time.deltaTime);//, Space.World);
             }
 
-            //BASIC PC MOVEMENT CONTROLS FOR DEGUGGING AND BUILD TESTING ------ TO BE REMOVED
-
-            if (Input.GetAxis("HorizontalKey") != 0)
+            if (isGrounded == false)
             {
-                Move();
-                PlayerAnim.SetBool("bl_walk", true);
+                moveVector += Physics.gravity * Time.deltaTime;
             }
 
-            if (Input.GetAxis("VerticalKey") != 0)
-            {
-                Move();
-                PlayerAnim.SetBool("bl_walk", true);
-            }
+            
         }
 
     }
@@ -107,19 +98,24 @@ public class MousePlayerController : NetworkBehaviour {
 
     }
 
-    //BASIC PC MOVEMENT CONTROLS FOR DEGUGGING AND BUILD TESTING ------ TO BE REMOVED
-    void Move()
+    //isGrounded--------------------------------------------------------------------------------------------------------------------------
+    void GroundCheck()
     {
-        //Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey")); // new direction equals values specified in input manager
-        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
-        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey");
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-        transform.forward = heading;
-        transform.position += rightMovement; // sets the left/right movement of the player to be where the input Vector3 dictates
-        transform.position += upMovement; // sets the up/down movement of the player to be where the input Vector3 dictates
+        RaycastHit hit;
+        float distance = 4f;
+        Vector3 dir = new Vector3(0, -1);
+        Debug.DrawRay(transform.position, dir, Color.red);
 
+        if (Physics.Raycast(transform.position, dir, out hit, distance))
+        {
+            isGrounded = true;
+
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
-
 
 
     // PLAYER NEAR/ EATING CHEESE

@@ -25,7 +25,7 @@ public class GameManager : NetworkBehaviour
         score = 0;
         timeLeft= 60;
         highScore = PlayerPrefs.GetInt(highScoreKey);  //Get the highScore from player prefs if it is there, 0 otherwise.
-        BestScore.text = "Best Score: " + (highScore); // set the best time text to read as the highest score
+        BestScore.text = "Best: " + (highScore); // set the best time text to read as the highest score
     }
 
     void Update()
@@ -35,7 +35,7 @@ public class GameManager : NetworkBehaviour
         ScoreText.text = "Score: " + score.ToString();
 
         timeLeft -= Time.deltaTime; //time left minus delta time
-        Timertext.text = "Time Remaining: " + Mathf.Round(timeLeft); // display the time left in referenced UI text
+        Timertext.text = "Time: " + Mathf.Round(timeLeft); // display the time left in referenced UI text
 
     }
 
