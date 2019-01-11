@@ -638,6 +638,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   gravitymulti: 1000
+  _isPlayerWithinZone: 0
+  _isPlayerEating: 0
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
   joystick: {fileID: 0}
   isGrounded: 0
   material: {fileID: 2100000, guid: 1bfad820fb2df7f4f90d247438ae01c7, type: 2}
@@ -682,7 +687,7 @@ SphereCollider:
   m_GameObject: {fileID: 1151202171176126}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.15
   m_Center: {x: 0, y: 0.15, z: 0}

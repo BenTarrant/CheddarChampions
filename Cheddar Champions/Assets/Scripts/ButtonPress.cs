@@ -8,7 +8,7 @@ public class ButtonPress : MonoBehaviour
     public Button EatButton;
     public Button SqueakButton;
     public MousePlayerController PC_Script;
-    public bool InZone;
+    //public EatCheese CheeseScript;
 
     void Start()
     {
@@ -26,6 +26,7 @@ public class ButtonPress : MonoBehaviour
     public void EatClick()
     {
         PC_Script.Consume();
+        //CheeseScript.Consume();
     }
 
     public void SqueakClick()

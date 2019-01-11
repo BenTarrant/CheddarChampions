@@ -11,14 +11,18 @@ public class MousePlayerController : NetworkBehaviour {
     public float gravitymulti;
 
     Animator PlayerAnim;
-    public static bool _isPlayerWithinZone;
+
+    public bool _isPlayerWithinZone;
+    public bool _isPlayerEating = false;
+    public LayerMask m_LayerMask;
+    private float currentCheese;
+
     //private Vector3 size;
     //private float cheeseScale = 1.0f;
     public Joystick joystick;
 
     public bool isGrounded = false;
     private CharacterController _controller;
-    //public float gravity = 20.0f;
 
     //Variables for extrusion
     public Material material;
@@ -64,11 +68,10 @@ public class MousePlayerController : NetworkBehaviour {
 
             if (moveVector != Vector3.zero && isGrounded == true)
             {
-                
+
                 PlayerAnim.SetBool("bl_walk", true);
                 transform.rotation = Quaternion.LookRotation(moveVector);
-                //transform.Translate
-                _controller.Move(moveVector * moveSpeed * Time.deltaTime);//, Space.World);
+                _controller.Move(moveVector * moveSpeed * Time.deltaTime);
             }
 
             if (isGrounded == false)
@@ -85,13 +88,24 @@ public class MousePlayerController : NetworkBehaviour {
     {
         if (_isPlayerWithinZone)
         {
-            GameManager.sGM.score++;
-            //PlayerAnim.SetBool("bl_eating", true);
-            print("Eating");
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 100))
+            {
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 100, Color.yellow);
+                Debug.Log("Did Hit");
+
+                GameManager.sGM.score++;
+                currentCheese = hit.transform.gameObject.GetComponent<EatCheese>().Health;
+                currentCheese--;
+                //PlayerAnim.SetBool("bl_eating", true);
+                print("Eating");
+            }
         }
 
         else
         {
+            _isPlayerEating = false;
             print("not able to eat");
         }
 
@@ -124,8 +138,8 @@ public class MousePlayerController : NetworkBehaviour {
     {
         if (other.tag == "Cheese") // if the player triggers
         {
+            
             _isPlayerWithinZone = true; // set boolean to true
-            //print(other.gameObject.name);
         }
 
     }
@@ -135,7 +149,6 @@ public class MousePlayerController : NetworkBehaviour {
         if (other.tag == "Cheese") // ensure it's the player leaving
         {
             _isPlayerWithinZone = false; // set boolean to false
-
         }
 
     }

@@ -49,7 +49,7 @@ public class PressurePads : MonoBehaviour
             //print("length is: " + hitColliders.Length);
             //Increase the number of Colliders in the array
             i++;
-            MeshCollider col = gameObject.GetComponentInParent<MeshCollider>();
+            
             
 
             if (hitColliders.Length == 1 && miceNeeded == 1)
