@@ -14,11 +14,14 @@ public class PressurePads : MonoBehaviour
     private bool DespawnedDoor;
     public Button buttonSqueak;
 
+    ParticleSystem[] particles;
+
     void Start()
     {
         //Use this to ensure that the Gizmos are being drawn when in Play Mode.
         m_Started = true;
         //buttonSqueak.enabled = false;
+        particles = GetComponentsInChildren<ParticleSystem>();
 
     }
 
@@ -29,10 +32,17 @@ public class PressurePads : MonoBehaviour
 
     IEnumerator MyCollisions()
     {
+
         //Use the OverlapBox to detect if there are any other colliders within this box area.
         //Use the GameObject's centre, half the size (as a radius) and rotation. This creates an invisible box around your GameObject.
         Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2, Quaternion.identity, m_LayerMask);
         int i = 0;
+
+        if (i == 0)
+        {
+            ReturnParticles();
+        }
+
         //Check when there is a new collider coming into contact with the box
         if (i < hitColliders.Length)
         {
@@ -46,7 +56,6 @@ public class PressurePads : MonoBehaviour
             {
                 print("Deactivating Barrier");
                 DespawnedDoor = true;
-                
                 Destroy(transform.parent.gameObject);
             }
 
@@ -54,12 +63,14 @@ public class PressurePads : MonoBehaviour
             {
                 print("Deactivating Barrier");
                 DespawnedDoor = true;
+                GreenParticles();
                 Destroy(transform.parent.gameObject);
             }
 
             else if (hitColliders.Length == 1 && miceNeeded == 2)
             {
                 print("Need more mice!");
+                RedParticles();
                 //buttonSqueak.enabled = true;
             }
 
@@ -83,7 +94,7 @@ public class PressurePads : MonoBehaviour
             }
 
             //buttonSqueak.enabled = false;
-
+            //ReturnParticles();
             yield return new WaitForSeconds(10f);
 
 
@@ -99,5 +110,39 @@ public class PressurePads : MonoBehaviour
         if (m_Started)
             //Draw a cube where the OverlapBox is (positioned where your GameObject is as well as a size)
             Gizmos.DrawWireCube(transform.position, transform.localScale);
+    }
+
+    public void RedParticles()
+    {
+        foreach(ParticleSystem childPS in particles)
+        {
+            ParticleSystem.MainModule Childmain = childPS.main;
+            Childmain.startColor = Color.red;
+        }
+
+    }
+
+    public void GreenParticles()
+    {
+        foreach (ParticleSystem childPS in particles)
+        {
+            ParticleSystem.MainModule Childmain = childPS.main;
+            Childmain.startColor = Color.green;
+        }
+    }
+
+    public void ProximityParticles()
+    {
+        //particles.Stop();
+        //particles.Play();
+    }
+
+    public void ReturnParticles()
+    {
+        foreach (ParticleSystem childPS in particles)
+        {
+            ParticleSystem.MainModule Childmain = childPS.main;
+            Childmain.startColor = Color.white;
+        }
     }
 }
