@@ -5,26 +5,25 @@ using UnityEngine.Networking;
 
 public class MousePlayerController : NetworkBehaviour {
 
+
+    // PLAYER MOVEMENT VARIABLES ------------
     public float moveSpeed = 4f;
-    Vector3 forward, right;
-
-    public float gravitymulti;
-
-    Animator PlayerAnim;
-
-    public bool _isPlayerWithinZone;
-    public bool _isPlayerEating = false;
-    public LayerMask m_LayerMask;
-    private float currentCheese;
-
-    //private Vector3 size;
-    //private float cheeseScale = 1.0f;
     public Joystick joystick;
-
     public bool isGrounded = false;
     private CharacterController _controller;
+    Animator PlayerAnim;
 
-    //Variables for extrusion
+    // CHEESE EATING VARIABLES --------------
+    public bool _isPlayerWithinZone;
+    public bool _isPlayerEating = false;
+    public GameObject cheeseBullet;
+    public float eat_cooldown = 1;
+    private float next_bite;
+    public Transform cheeseSpawn;
+
+
+
+    // Variables for extrusion ------------
     public Material material;
     [Header("Extrusion Level")]
     [Range(0, 0.08f)]
@@ -39,6 +38,9 @@ public class MousePlayerController : NetworkBehaviour {
         PlayerAnim = GetComponent<Animator>();
         gameObject.GetComponent <NetworkAnimator> ().SetParameterAutoSend(0, true);
         _controller = GetComponent<CharacterController>();
+
+        
+
     }
 
     // Use this for initialization
@@ -53,7 +55,7 @@ public class MousePlayerController : NetworkBehaviour {
 
         GameObject Fixedjoystick = GameObject.FindGameObjectWithTag("Joystick") as GameObject;
         joystick = FindObjectOfType<Joystick>();
-
+        
     }
 
     // Update is called once per frame
@@ -65,6 +67,7 @@ public class MousePlayerController : NetworkBehaviour {
             PlayerAnim.SetBool("bl_walk", false);
             GroundCheck();
             Vector3 moveVector = (Vector3.right * joystick.Horizontal + Vector3.forward * joystick.Vertical);
+            
 
             if (moveVector != Vector3.zero && isGrounded == true)
             {
@@ -84,33 +87,6 @@ public class MousePlayerController : NetworkBehaviour {
 
     }
 
-    public void Consume()
-    {
-        if (_isPlayerWithinZone)
-        {
-
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 100))
-            {
-                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 100, Color.yellow);
-                Debug.Log("Did Hit");
-
-                GameManager.sGM.score++;
-                currentCheese = hit.transform.gameObject.GetComponent<EatCheese>().Health;
-                currentCheese--;
-                //PlayerAnim.SetBool("bl_eating", true);
-                print("Eating");
-            }
-        }
-
-        else
-        {
-            _isPlayerEating = false;
-            print("not able to eat");
-        }
-
-
-    }
 
     //isGrounded--------------------------------------------------------------------------------------------------------------------------
     void GroundCheck()
@@ -152,5 +128,19 @@ public class MousePlayerController : NetworkBehaviour {
         }
 
     }
+
+    
+    public void FireCheese()
+    {
+        print ("firing cheese bullet");
+        cheeseSpawn = this.gameObject.transform;
+        Instantiate(cheeseBullet.gameObject, cheeseSpawn.localPosition, cheeseSpawn.transform.rotation);
+
+        next_bite = Time.time + eat_cooldown;
+
+        //NetworkServer.Spawn(_bullet);
+    }
+
+    
 
 }

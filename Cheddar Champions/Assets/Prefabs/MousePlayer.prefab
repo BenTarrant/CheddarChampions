@@ -215,7 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4601500752274650}
   m_Layer: 9
-  m_Name: CrumbsSpawn
+  m_Name: CheeseSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,8 +263,8 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4482627771996428}
-  - {fileID: 4601500752274650}
   - {fileID: 4054149711919016}
+  - {fileID: 4601500752274650}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -292,7 +292,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4024992252377400}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4085916073568198
 Transform:
@@ -425,12 +425,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680046974608420}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.038, z: 0.127}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4024992252377400}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4851798036814768
 Transform:
@@ -637,14 +637,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
-  gravitymulti: 1000
-  _isPlayerWithinZone: 0
-  _isPlayerEating: 0
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 1024
   joystick: {fileID: 0}
   isGrounded: 0
+  _isPlayerWithinZone: 0
+  _isPlayerEating: 0
+  cheeseBullet: {fileID: 1927656592964262, guid: 910e88a10a9015648af58aaa5cf7fe6d,
+    type: 2}
+  eat_cooldown: 1
+  cheeseSpawn: {fileID: 4601500752274650}
   material: {fileID: 2100000, guid: 1bfad820fb2df7f4f90d247438ae01c7, type: 2}
   maxExtrusionAmount: 0.08
 --- !u!114 &114858151315048550

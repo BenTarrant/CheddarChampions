@@ -25,8 +25,8 @@ public class ButtonPress : MonoBehaviour
 
     public void EatClick()
     {
-        PC_Script.Consume();
-        //CheeseScript.Consume();
+        PC_Script.FireCheese();
+        print("eat button pressed");
     }
 
     public void SqueakClick()
