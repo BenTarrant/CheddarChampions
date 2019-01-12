@@ -19,7 +19,7 @@ public class MousePlayerController : NetworkBehaviour {
     public GameObject cheeseBullet;
     public float eat_cooldown = 1;
     private float next_bite;
-    public Transform cheeseSpawn;
+    private GameObject cheeseSpawn;
 
 
 
@@ -55,7 +55,7 @@ public class MousePlayerController : NetworkBehaviour {
 
         GameObject Fixedjoystick = GameObject.FindGameObjectWithTag("Joystick") as GameObject;
         joystick = FindObjectOfType<Joystick>();
-        
+       cheeseSpawn = transform.Find("CheeseSpawn").gameObject;
     }
 
     // Update is called once per frame
@@ -129,16 +129,15 @@ public class MousePlayerController : NetworkBehaviour {
 
     }
 
-    
-    public void FireCheese()
+    [Command]
+    public void CmdFireCheese()
     {
         print ("firing cheese bullet");
-        cheeseSpawn = this.gameObject.transform;
-        Instantiate(cheeseBullet.gameObject, cheeseSpawn.localPosition, cheeseSpawn.transform.rotation);
+        var _bullet = Instantiate(cheeseBullet, transform.position + transform.TransformDirection(new Vector3 (0,0.5f,1.5f)), transform.rotation);
 
         next_bite = Time.time + eat_cooldown;
 
-        //NetworkServer.Spawn(_bullet);
+        NetworkServer.Spawn(_bullet);
     }
 
     
