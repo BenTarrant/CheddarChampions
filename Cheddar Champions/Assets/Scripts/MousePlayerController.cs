@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class MousePlayerController : NetworkBehaviour {
 
@@ -39,7 +40,6 @@ public class MousePlayerController : NetworkBehaviour {
         gameObject.GetComponent <NetworkAnimator> ().SetParameterAutoSend(0, true);
         _controller = GetComponent<CharacterController>();
 
-        
 
     }
 
@@ -118,6 +118,12 @@ public class MousePlayerController : NetworkBehaviour {
             _isPlayerWithinZone = true; // set boolean to true
         }
 
+        if (other.tag == "Trap")
+        {
+            print("Hit Trap");
+            TakeDamage();
+        }
+
     }
 
     void OnTriggerExit(Collider other) // when trigger leaves collision
@@ -128,6 +134,13 @@ public class MousePlayerController : NetworkBehaviour {
         }
 
     }
+
+    void TakeDamage()
+    {
+
+    }
+
+
 
     [Command]
     public void CmdFireCheese()

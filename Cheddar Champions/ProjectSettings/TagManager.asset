@@ -9,6 +9,7 @@ TagManager:
   - SpawnPoint
   - Rooms
   - DoorSpawnPoint
+  - Trap
   layers:
   - Default
   - TransparentFX

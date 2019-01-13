@@ -71,7 +71,6 @@ GameObject:
   - component: {fileID: 114115044927549604}
   - component: {fileID: 114838848341715584}
   - component: {fileID: 95266201657033382}
-  - component: {fileID: 135063784779857956}
   - component: {fileID: 114490519822782924}
   - component: {fileID: 114249803159445480}
   - component: {fileID: 114293514443265942}
@@ -644,7 +643,6 @@ MonoBehaviour:
   cheeseBullet: {fileID: 1927656592964262, guid: 910e88a10a9015648af58aaa5cf7fe6d,
     type: 2}
   eat_cooldown: 1
-  cheeseSpawn: {fileID: 4601500752274650}
   material: {fileID: 2100000, guid: 1bfad820fb2df7f4f90d247438ae01c7, type: 2}
   maxExtrusionAmount: 0.08
 --- !u!114 &114858151315048550
@@ -679,18 +677,6 @@ MonoBehaviour:
     i15: 99
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!135 &135063784779857956
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1151202171176126}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.15
-  m_Center: {x: 0, y: 0.15, z: 0}
 --- !u!137 &137380608763374110
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
