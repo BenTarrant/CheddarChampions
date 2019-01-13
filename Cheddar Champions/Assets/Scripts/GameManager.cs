@@ -30,12 +30,14 @@ public class GameManager : NetworkBehaviour
 
     void Update()
     {
-        //score = Mathf.RoundToInt(timePassed); //score int = time passed float but rounded to the nearest int
-        //Timertext.text = score.ToString(); // set the timer passed text value to the score int string
-        ScoreText.text = "Score: " + score.ToString();
+        if(ScoreText && Timertext != null)
+        {
+            ScoreText.text = "Score: " + score.ToString();
 
-        timeLeft -= Time.deltaTime; //time left minus delta time
-        Timertext.text = "Time: " + Mathf.Round(timeLeft); // display the time left in referenced UI text
+            timeLeft -= Time.deltaTime; //time left minus delta time
+            Timertext.text = "Time: " + Mathf.Round(timeLeft); // display the time left in referenced UI text
+        }
+
 
     }
 

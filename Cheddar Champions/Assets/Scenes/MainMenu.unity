@@ -382,6 +382,7 @@ MonoBehaviour:
   m_YourFirstButton: {fileID: 1441834865}
   m_YourSecondButton: {fileID: 58828162}
   m_YourThirdButton: {fileID: 1077276747}
+  lobbyManager: {fileID: 155310, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
 --- !u!4 &162566789
 Transform:
   m_ObjectHideFlags: 0

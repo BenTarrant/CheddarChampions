@@ -20,7 +20,7 @@ public class MenuButtonManager : MonoBehaviour
     {
         //Output this to console when play button is clicked
         Debug.Log("You have clicked the play button!");
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
     }
 
     void Tutorial()

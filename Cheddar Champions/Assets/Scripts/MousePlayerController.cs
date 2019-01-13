@@ -19,8 +19,8 @@ public class MousePlayerController : NetworkBehaviour {
     public bool _isPlayerEating = false;
     public GameObject cheeseBullet;
     public float eat_cooldown = 1;
-    private float next_bite;
-    private GameObject cheeseSpawn;
+    ///private float next_bite;
+    //private GameObject cheeseSpawn;
 
 
 
@@ -53,9 +53,9 @@ public class MousePlayerController : NetworkBehaviour {
             return;
         }
 
-        GameObject Fixedjoystick = GameObject.FindGameObjectWithTag("Joystick") as GameObject;
+        //GameObject Fixedjoystick = GameObject.FindGameObjectWithTag("Joystick") as GameObject;
         joystick = FindObjectOfType<Joystick>();
-       cheeseSpawn = transform.Find("CheeseSpawn").gameObject;
+       //cheeseSpawn = transform.Find("CheeseSpawn").gameObject;
     }
 
     // Update is called once per frame
@@ -148,7 +148,7 @@ public class MousePlayerController : NetworkBehaviour {
         print ("firing cheese bullet");
         var _bullet = Instantiate(cheeseBullet, transform.position + transform.TransformDirection(new Vector3 (0,0.5f,1.5f)), transform.rotation);
 
-        next_bite = Time.time + eat_cooldown;
+        //next_bite = Time.time + eat_cooldown;
 
         NetworkServer.Spawn(_bullet);
     }

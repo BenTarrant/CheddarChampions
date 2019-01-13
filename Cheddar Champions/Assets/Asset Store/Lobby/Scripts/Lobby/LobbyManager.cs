@@ -36,7 +36,7 @@ namespace Prototype.NetworkLobby
         protected RectTransform currentPanel;
 
         public Button backButton;
-        
+        public Button mainMenuButton;
 
         public Text statusInfo;
         public Text hostInfo;
@@ -63,7 +63,7 @@ namespace Prototype.NetworkLobby
             currentPanel = mainMenuPanel;
 
             backButton.gameObject.SetActive(false); // set to true so we can return to the main menu options when lobby manager fixed
-            GetComponent<Canvas>().enabled = true;
+            GetComponent<Canvas>().enabled = false; //CHANGED
 
             DontDestroyOnLoad(gameObject);
 
@@ -169,6 +169,17 @@ namespace Prototype.NetworkLobby
 
             backDelegate();
 			topPanel.isInGame = false;
+
+        }
+
+        public void GoMenu()
+        {
+            GetComponent<Canvas>().enabled = false;
+        }
+
+        public void ReturnMenu()
+        {
+            GetComponent<Canvas>().enabled = true;
         }
 
         // ----------------- Server management

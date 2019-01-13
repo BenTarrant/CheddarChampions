@@ -8,10 +8,17 @@ public class ButtonPress : MonoBehaviour
     public Button EatButton;
     public Button SqueakButton;
     public MousePlayerController PC_Script;
+
+    public Camera main;
+    public Camera win;
     //public EatCheese CheeseScript;
 
     void Start()
     {
+
+        main.enabled = true;
+        win.enabled = false;
+
         //Calls the TaskOnClick/TaskWithParameters/ButtonClicked method when you click the Button
         EatButton.onClick.AddListener(EatClick);
         //SqueakButton.onClick.AddListener(SqueakClick);
@@ -27,6 +34,9 @@ public class ButtonPress : MonoBehaviour
     {
         PC_Script.CmdFireCheese();
         print("eat button pressed");
+
+        //main.enabled = false;
+        //win.enabled = true;
     }
 
     public void SqueakClick()
