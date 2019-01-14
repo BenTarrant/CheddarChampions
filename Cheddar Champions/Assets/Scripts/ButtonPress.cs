@@ -32,7 +32,6 @@ public class ButtonPress : NetworkBehaviour
         {
             myPlayer = GameObject.FindGameObjectWithTag("Player");
 
-
             if (myPlayer == null)
             {
                 print("Player not found");
@@ -45,9 +44,8 @@ public class ButtonPress : NetworkBehaviour
         print("Does my Player have authority: " + myPlayer.GetComponent<NetworkIdentity>().hasAuthority);
 
         myController = myPlayer.GetComponent<MousePlayerController>();
-        //PC_Script.CmdFireCheese();
 
-        myController.CmdFireCheese();
+        myController.FireCheese();
         print("eat button pressed");
 
         //main.enabled = false;

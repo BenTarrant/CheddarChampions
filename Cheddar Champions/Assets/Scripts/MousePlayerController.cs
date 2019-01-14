@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class MousePlayerController : NetworkBehaviour
 {
-
-
     // PLAYER MOVEMENT VARIABLES ------------
     public float moveSpeed = 4f;
     public Joystick joystick;
@@ -19,11 +17,19 @@ public class MousePlayerController : NetworkBehaviour
     public bool _isPlayerWithinZone;
     public bool _isPlayerEating = false;
     public GameObject cheeseBullet;
-    public float coolDown = 1;
-    private float eat_cooldown;
-    //private GameObject cheeseSpawn;
+    protected JoyButton joyButton;
+   
+    // COOLDOWN -----------------------------
 
-    // Variables for extrusion ------------
+
+    // PLAYER FREEZING ----------------------
+    public GameObject slowZone;
+
+    // PLAYER SCORE -------------------------
+    //public Text personalScore;
+
+
+    // Variables for extrusion --------------
     public Material material;
     [Header("Extrusion Level")]
     [Range(0, 0.08f)]
@@ -37,7 +43,8 @@ public class MousePlayerController : NetworkBehaviour
         gameObject.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
         _controller = GetComponent<CharacterController>();
 
-        eat_cooldown = coolDown;
+        joyButton = FindObjectOfType<JoyButton>();
+
     }
 
     // Use this for initialization
@@ -50,8 +57,6 @@ public class MousePlayerController : NetworkBehaviour
         }
 
         joystick = FindObjectOfType<Joystick>();
-
-        //cheeseSpawn = transform.Find("CheeseSpawn").gameObject;
     }
 
     // Update is called once per frame
@@ -69,14 +74,16 @@ public class MousePlayerController : NetworkBehaviour
                 }
             }
 
+            //personalScore.text = "" + GameManager.sGM.score.ToString();
+
             PlayerAnim.SetBool("bl_walk", false);
             GroundCheck();
             Vector3 moveVector = (Vector3.right * joystick.Horizontal + Vector3.forward * joystick.Vertical);
 
             if (moveVector != Vector3.zero && isGrounded == true)
             {
-
                 PlayerAnim.SetBool("bl_walk", true);
+                PlayerAnim.SetBool("bl_eating", false);
                 transform.rotation = Quaternion.LookRotation(moveVector);
                 _controller.Move(moveVector * moveSpeed * Time.deltaTime);
             }
@@ -86,19 +93,24 @@ public class MousePlayerController : NetworkBehaviour
                 moveVector += Physics.gravity * Time.deltaTime;
             }
 
-            if (eat_cooldown > 0)
+            if (joyButton.Pressed && _isPlayerWithinZone)
             {
-                eat_cooldown -= Time.deltaTime;
+                FireCheese();
+                print("fire bullet");
             }
 
             if (PlayerAnim.GetCurrentAnimatorStateInfo(0).IsName("Eating"))
             {
-                print("Imma Eating");
 
                 if (PlayerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
                 {
                     PlayerAnim.SetBool("bl_eating", false);
                 }
+            }
+
+            if (_isPlayerWithinZone == true)
+            {
+                print("in Zone");
             }
         }
     }
@@ -122,20 +134,33 @@ public class MousePlayerController : NetworkBehaviour
         }
     }
 
-    // PLAYER NEAR/ EATING CHEESE
+    [Command]
+    public void CmdDeleteFromScene(GameObject toDestroy)
+    {
+        NetworkServer.Destroy(toDestroy);
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Cheese") // if the player triggers
-        {
-
-            _isPlayerWithinZone = true; // set boolean to true
-        }
-
         if (other.tag == "Trap")
         {
             print("Hit Trap");
             TakeDamage();
         }
+
+        if (other.tag == "Cheese") // if the player triggers
+        {
+            _isPlayerWithinZone = true; // set boolean to true
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Cheese") // if the player triggers
+        {
+            _isPlayerWithinZone = true; // set boolean to true
+        }
+
     }
 
     void OnTriggerExit(Collider other) // when trigger leaves collision
@@ -148,22 +173,25 @@ public class MousePlayerController : NetworkBehaviour
 
     void TakeDamage()
     {
-
+        Instantiate(slowZone, transform.position, transform.rotation);
     }
 
-    [Command]
-    public void CmdFireCheese()
+    void InZone()
     {
-        if (true)//(eat_cooldown < Time.deltaTime)
-        {
-            PlayerAnim.SetBool("bl_eating", true);
+        _isPlayerWithinZone = true;
+    }
 
-            print("firing cheese bullet");
-            var _bullet = Instantiate(cheeseBullet, transform.position, transform.rotation);
+    public void FireCheese()
+    {
 
-            eat_cooldown = coolDown;
+        PlayerAnim.SetBool("bl_eating", true);
 
-            NetworkServer.Spawn(_bullet);
-        }
+        print("firing cheese bullet");
+
+        Instantiate(cheeseBullet, transform.position, transform.rotation);
+
+        print("resetting cooldown");
+
+
     }
 }
