@@ -11,7 +11,7 @@ public class PressurePads : MonoBehaviour
     // 2 = needs a TWO PLAYERS
     // 3 = needs a THREE PLAYERS
 
-    private bool DespawnedDoor;
+    //private bool DespawnedDoor;
     public Button buttonSqueak;
 
     ParticleSystem[] particles;
@@ -55,14 +55,14 @@ public class PressurePads : MonoBehaviour
             if (hitColliders.Length == 1 && miceNeeded == 1)
             {
                 print("Deactivating Barrier");
-                DespawnedDoor = true;
+                //DespawnedDoor = true;
                 Destroy(transform.parent.gameObject);
             }
 
            else if (hitColliders.Length == 2 && miceNeeded == 2)
             {
                 print("Deactivating Barrier");
-                DespawnedDoor = true;
+                //DespawnedDoor = true;
                 GreenParticles();
                 Destroy(transform.parent.gameObject);
             }
@@ -77,7 +77,7 @@ public class PressurePads : MonoBehaviour
             else if (hitColliders.Length == 3 && miceNeeded == 3)
             {
                 print("Deactivating Barrier");
-                DespawnedDoor = true;
+                //DespawnedDoor = true;
                 Destroy(transform.parent.gameObject);
             }
 

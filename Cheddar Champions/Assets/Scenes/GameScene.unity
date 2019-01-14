@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4472968, g: 0.49722785, b: 0.5752112, a: 1}
+  m_IndirectSpecularColor: {r: 0.44729644, g: 0.49722743, b: 0.57521075, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000058, guid: 1f277f15b0d5c5146bbf9e02bc97b60d,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -320,16 +321,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 65776954952142828, guid: 1ad7176cb31366f458b72b60b8b4675f,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114724963252757326, guid: 1ad7176cb31366f458b72b60b8b4675f,
-        type: 2}
-      propertyPath: CheeseExplosion
-      value: 
-      objectReference: {fileID: 193104, guid: c2f28a236b0696a4f90a994422019577, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ad7176cb31366f458b72b60b8b4675f, type: 2}
   m_IsPrefabAsset: 0
@@ -800,16 +791,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
-    - target: {fileID: 65914031307388888, guid: f3d870db0b2d7ad48a0a3eaecac2fbf6,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114199484401845126, guid: f3d870db0b2d7ad48a0a3eaecac2fbf6,
-        type: 2}
-      propertyPath: CheeseExplosion
-      value: 
-      objectReference: {fileID: 193104, guid: c2f28a236b0696a4f90a994422019577, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3d870db0b2d7ad48a0a3eaecac2fbf6, type: 2}
   m_IsPrefabAsset: 0

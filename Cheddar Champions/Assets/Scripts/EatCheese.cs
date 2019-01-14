@@ -14,7 +14,7 @@ public class EatCheese : MonoBehaviour
 
         if (Health <= 0) // if the health drops below 0
         {
-            Instantiate(CheeseExplosion, transform.position, transform.rotation); // create explosion as reference in GM
+            Instantiate(CheeseExplosion, transform.position, Quaternion.identity); // create explosion as reference in GM
             Destroy(gameObject); // destory the enemy
         }
     }

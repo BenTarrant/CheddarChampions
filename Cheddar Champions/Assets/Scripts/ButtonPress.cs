@@ -2,8 +2,9 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class ButtonPress : MonoBehaviour
+public class ButtonPress : NetworkBehaviour
 {
     public Button EatButton;
     public Button SqueakButton;
@@ -13,26 +14,40 @@ public class ButtonPress : MonoBehaviour
     public Camera win;
     //public EatCheese CheeseScript;
 
+    public GameObject myPlayer;
+    private MousePlayerController myController;
+
     void Start()
     {
-
         main.enabled = true;
         win.enabled = false;
 
-        //Calls the TaskOnClick/TaskWithParameters/ButtonClicked method when you click the Button
         EatButton.onClick.AddListener(EatClick);
         //SqueakButton.onClick.AddListener(SqueakClick);
-
     }
 
     void Update()
     {
+        if (myPlayer == null)
+        {
+            myPlayer = GameObject.FindGameObjectWithTag("Player");
 
+
+            if (myPlayer == null)
+            {
+                print("Player not found");
+            }
+        }
     }
 
     public void EatClick()
     {
-        PC_Script.CmdFireCheese();
+        print("Does my Player have authority: " + myPlayer.GetComponent<NetworkIdentity>().hasAuthority);
+
+        myController = myPlayer.GetComponent<MousePlayerController>();
+        //PC_Script.CmdFireCheese();
+
+        myController.CmdFireCheese();
         print("eat button pressed");
 
         //main.enabled = false;
@@ -43,7 +58,5 @@ public class ButtonPress : MonoBehaviour
     {
         print("Squeaked");
     }
-
-
-    }
+}
 

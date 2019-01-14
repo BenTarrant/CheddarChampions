@@ -21,8 +21,6 @@ GameObject:
   - component: {fileID: 4726995999655994}
   - component: {fileID: 198410078641955148}
   - component: {fileID: 199794198518801338}
-  - component: {fileID: 114114628696788922}
-  - component: {fileID: 114096038076988634}
   m_Layer: 10
   m_Name: ItemSparkleYellow
   m_TagString: Untagged
@@ -171,58 +169,11 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1718713608337302}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4.626744, y: 4.925079, z: 6.3119183}
   m_Center: {x: 9.5085335, y: 1.9999983, z: 12.077044}
---- !u!114 &114096038076988634
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1031428495367278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1205285110, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visRange: 15
-  visUpdateInterval: 1
-  checkMethod: 0
-  forceHidden: 0
---- !u!114 &114114628696788922
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1031428495367278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 243
-    i1: 216
-    i2: 112
-    i3: 219
-    i4: 11
-    i5: 45
-    i6: 122
-    i7: 212
-    i8: 138
-    i9: 10
-    i10: 62
-    i11: 174
-    i12: 202
-    i13: 194
-    i14: 251
-    i15: 246
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114199484401845126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,8 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 5
-  CheeseExplosion: {fileID: 1661644869239872, guid: 7bec52361a229364fab72dff895d37b9,
-    type: 2}
+  CheeseExplosion: {fileID: 193104, guid: c2f28a236b0696a4f90a994422019577, type: 2}
 --- !u!198 &198410078641955148
 ParticleSystem:
   m_ObjectHideFlags: 1
