@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 65524023303251940}
   - component: {fileID: 54111288348305212}
   - component: {fileID: 114795245720578158}
+  - component: {fileID: 114351375177455494}
   m_Layer: 0
   m_Name: LeftDoorSpawnPoint
   m_TagString: DoorSpawnPoint
@@ -155,6 +156,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114351375177455494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895849748453238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 182
+    i1: 210
+    i2: 13
+    i3: 95
+    i4: 190
+    i5: 14
+    i6: 93
+    i7: 84
+    i8: 233
+    i9: 222
+    i10: 226
+    i11: 215
+    i12: 122
+    i13: 112
+    i14: 186
+    i15: 105
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114795245720578158
 MonoBehaviour:
   m_ObjectHideFlags: 1

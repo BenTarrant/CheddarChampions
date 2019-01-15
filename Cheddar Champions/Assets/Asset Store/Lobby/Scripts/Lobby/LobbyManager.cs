@@ -403,7 +403,9 @@ namespace Prototype.NetworkLobby
                 }
             }
 
-            ServerChangeScene(playScene);
+            string[] Scenes = {"GameScene"}; //------------------------------- ADD ADDITIONAL SCENES HERE
+
+            ServerChangeScene(Scenes[Random.Range(0, Scenes.Length)]);
         }
 
         // ----------------- Client callbacks ------------------

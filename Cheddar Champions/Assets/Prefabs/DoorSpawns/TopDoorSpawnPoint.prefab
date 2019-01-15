@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 65292645699254100}
   - component: {fileID: 54033558309793098}
   - component: {fileID: 114753945046100726}
+  - component: {fileID: 114245598188798306}
   m_Layer: 0
   m_Name: TopDoorSpawnPoint
   m_TagString: DoorSpawnPoint
@@ -155,6 +156,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114245598188798306
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1939827556020814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 20
+    i1: 188
+    i2: 12
+    i3: 104
+    i4: 35
+    i5: 156
+    i6: 235
+    i7: 164
+    i8: 75
+    i9: 87
+    i10: 245
+    i11: 12
+    i12: 245
+    i13: 199
+    i14: 74
+    i15: 54
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114753945046100726
 MonoBehaviour:
   m_ObjectHideFlags: 1

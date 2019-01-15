@@ -187,6 +187,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 5
   CheeseExplosion: {fileID: 193104, guid: c2f28a236b0696a4f90a994422019577, type: 2}
+  Players: []
+  Client: {fileID: 0}
+  Host: {fileID: 0}
 --- !u!198 &198410078641955148
 ParticleSystem:
   m_ObjectHideFlags: 1

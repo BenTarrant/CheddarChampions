@@ -134,11 +134,6 @@ public class MousePlayerController : NetworkBehaviour
         }
     }
 
-    [Command]
-    public void CmdDeleteFromScene(GameObject toDestroy)
-    {
-        NetworkServer.Destroy(toDestroy);
-    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -183,7 +178,6 @@ public class MousePlayerController : NetworkBehaviour
 
     public void FireCheese()
     {
-
         PlayerAnim.SetBool("bl_eating", true);
 
         print("firing cheese bullet");
@@ -191,7 +185,5 @@ public class MousePlayerController : NetworkBehaviour
         Instantiate(cheeseBullet, transform.position, transform.rotation);
 
         print("resetting cooldown");
-
-
     }
 }

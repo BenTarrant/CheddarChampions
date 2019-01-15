@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 65191645782566554}
   - component: {fileID: 54317436090320314}
   - component: {fileID: 114231834881096176}
+  - component: {fileID: 114699974645151394}
   m_Layer: 0
   m_Name: RightDoorSpawnPoint
   m_TagString: DoorSpawnPoint
@@ -171,3 +172,35 @@ MonoBehaviour:
   topDoor: {fileID: 1266598681809474, guid: 7188493c28a82fa42bdf931e5f1ec16e, type: 2}
   leftDoor: {fileID: 1363117199322112, guid: 04b9939cb1df4a142b63e66d491ba0a3, type: 2}
   rightDoor: {fileID: 1254298591436864, guid: 6f8c5d433e8ede24ba8219dcc3e09b10, type: 2}
+--- !u!114 &114699974645151394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758592020353310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 19
+    i1: 174
+    i2: 175
+    i3: 122
+    i4: 185
+    i5: 169
+    i6: 3
+    i7: 132
+    i8: 169
+    i9: 9
+    i10: 134
+    i11: 74
+    i12: 208
+    i13: 130
+    i14: 63
+    i15: 183
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
