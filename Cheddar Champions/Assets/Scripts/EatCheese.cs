@@ -27,11 +27,4 @@ public class EatCheese : NetworkBehaviour
             NetworkServer.Destroy(gameObject);
         }
     }
-
-    public override void OnNetworkDestroy()
-    {
-        base.OnNetworkDestroy();
-
-
-    }
 }

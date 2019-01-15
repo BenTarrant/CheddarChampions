@@ -24,7 +24,7 @@ public class CheeseSpawner : NetworkBehaviour {
 
             GameObject cheese = (GameObject)Instantiate(BigCheese, transform.position, transform.rotation);
 
-            NetworkServer.SpawnWithClientAuthority(cheese, this.connectionToClient);
+            NetworkServer.Spawn(cheese);
 
         }
         
