@@ -579,6 +579,12 @@ MonoBehaviour:
   cheeseBullet: {fileID: 1927656592964262, guid: 910e88a10a9015648af58aaa5cf7fe6d,
     type: 2}
   slowZone: {fileID: 1273751814214628, guid: 57b8d760fe915f24193b2b337fca9404, type: 2}
+  timeLeft: 60
+  Timertext: {fileID: 0}
+  BestScore: {fileID: 0}
+  ScoreText: {fileID: 0}
+  score: 0
+  highScore: 0
   material: {fileID: 2100000, guid: 1bfad820fb2df7f4f90d247438ae01c7, type: 2}
   maxExtrusionAmount: 0.08
 --- !u!114 &114158667280154950
@@ -705,6 +711,7 @@ MonoBehaviour:
     type: 2}
   fl_cool_down: 0.3
   SpawnPoint: {fileID: 1727540826216188}
+  PC: {fileID: 114017082273971348}
 --- !u!137 &137631946806267768
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

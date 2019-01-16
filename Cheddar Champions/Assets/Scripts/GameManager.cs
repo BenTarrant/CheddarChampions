@@ -37,8 +37,6 @@ public class GameManager : NetworkBehaviour
             timeLeft -= Time.deltaTime; //time left minus delta time
             Timertext.text = "Time: " + Mathf.Round(timeLeft); // display the time left in referenced UI text
         }
-
-
     }
 
 

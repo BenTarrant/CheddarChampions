@@ -15,7 +15,7 @@ public class ButtonPress : NetworkBehaviour
     //public EatCheese CheeseScript;
 
     public GameObject myPlayer;
-    private MousePlayerController myController;
+    //private MousePlayerController myController;
 
     void Start()
     {
@@ -43,7 +43,7 @@ public class ButtonPress : NetworkBehaviour
     {
         print("Does my Player have authority: " + myPlayer.GetComponent<NetworkIdentity>().hasAuthority);
 
-        myController = myPlayer.GetComponent<MousePlayerController>();
+        //myController = myPlayer.GetComponent<MousePlayerController>();
 
         //myController.CmdFireCheese();
         print("eat button pressed");

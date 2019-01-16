@@ -7,7 +7,7 @@ public class EatCheese : NetworkBehaviour
 {
     [SyncVar]
     public float Health = 5f;
-
+    public MousePlayerController PC;
     public GameObject CheeseExplosion;
 
     // ----------------------------------------------------------------------
@@ -21,9 +21,9 @@ public class EatCheese : NetworkBehaviour
     public void Damage(int _in_damage_taken)
     {
         if (!isServer) return;
-        GameManager.sGM.score++;
-        Health -= _in_damage_taken;
-        
-    }//-----
+       Health -= _in_damage_taken;
 
-}//==========
+    }
+       
+
+    }//-----

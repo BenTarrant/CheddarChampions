@@ -26,8 +26,8 @@ public class MousePlayerController : NetworkBehaviour
     public GameObject slowZone;
 
     // PLAYER SCORE -------------------------
-    //public Text personalScore;
-
+    public int score;
+    public Text ScoreText; // reference the UI text
 
     // Variables for extrusion --------------
     public Material material;
@@ -38,12 +38,15 @@ public class MousePlayerController : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
 
-
     }
 
     // Use this for initialization
     void Start()
     {
+
+        score = 0;
+
+
         if (!isLocalPlayer)
         {
             print("not local Player");
@@ -57,8 +60,6 @@ public class MousePlayerController : NetworkBehaviour
             gameObject.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
             _controller = GetComponent<CharacterController>();
             joystick = FindObjectOfType<Joystick>();
-
-
 
     }
 
@@ -77,8 +78,6 @@ public class MousePlayerController : NetworkBehaviour
                 }
             }
 
-            //personalScore.text = "" + GameManager.sGM.score.ToString();
-
             PlayerAnim.SetBool("bl_walk", false);
             GroundCheck();
             Vector3 moveVector = (Vector3.right * joystick.Horizontal + Vector3.forward * joystick.Vertical);
@@ -96,33 +95,14 @@ public class MousePlayerController : NetworkBehaviour
                 moveVector += Physics.gravity * Time.deltaTime;
             }
 
-            //if (joyButton.Pressed) //&& _isPlayerWithinZone)
-            //{
-
-            //    print("firing bullet");
-
-            //    print("Am I a Server: " + isServer + " Am I a Client: " + isClient + " Do I have Authority: " + hasAuthority + " Am I a Local Player: " + isLocalPlayer);
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.Z))
-            //{
-            //    CmdFireCheese();
-            //    print("firing bullet");
-
-            //    print("Am I a Server: " + isServer + " Am I a Client: " + isClient + " Do I have Authority: " + hasAuthority + " Am I a Local Player: " + isLocalPlayer);
-            //}
-
-            if (PlayerAnim.GetCurrentAnimatorStateInfo(0).IsName("Eating"))
-            {
-
-                if (PlayerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
-                {
-                    PlayerAnim.SetBool("bl_eating", false);
-                }
-            }
 
             if (_isPlayerWithinZone == true)
             {
+            }
+
+            if (ScoreText != null)
+            {
+                ScoreText.text = "Score: " + score.ToString();
             }
         }
     }
@@ -146,10 +126,8 @@ public class MousePlayerController : NetworkBehaviour
         }
     }
 
-
     void OnTriggerEnter(Collider other)
     {
-
 
         if (other.tag == "Cheese") // if the player triggers
         {
@@ -173,15 +151,15 @@ public class MousePlayerController : NetworkBehaviour
             _isPlayerWithinZone = false; // set boolean to false
         }
     }
-
-    void OnCollisionEnter(Collision other)
+    public void OnCollisionEnter(Collision col)
     {
-        if (other.gameObject.name == "CheeseBullet(Clone)")
+        if (col.gameObject.tag == "Enemy")
         {
-            print("Hit");
             TakeDamage();
         }
     }
+
+
 
     void TakeDamage()
     {

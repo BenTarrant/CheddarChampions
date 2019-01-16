@@ -11,11 +11,16 @@ public class Cheese_Ranged : NetworkBehaviour {
 
     protected JoyButton joyButton;
     public GameObject SpawnPoint;
+    public MousePlayerController PC;
+    Animator PlayerAnim;
+
 
     // Use this for initialization
     void Start () {
 
         joyButton = FindObjectOfType<JoyButton>();
+        PlayerAnim = GetComponent<Animator>();
+        gameObject.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
 
     }
     void Update()
@@ -24,6 +29,28 @@ public class Cheese_Ranged : NetworkBehaviour {
         if (isLocalPlayer)
         {
             Attack();
+
+            if (PlayerAnim == null)
+            {
+                PlayerAnim = GetComponent<Animator>();
+
+                if (PlayerAnim == null)
+                {
+                    print("PC Animator not found");
+                }
+            }
+
+
+            if (PlayerAnim.GetCurrentAnimatorStateInfo(0).IsName("Eating"))
+            {
+
+                if (PlayerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+                {
+                    PlayerAnim.SetBool("bl_eating", false);
+                }
+            }
+
+
         }
     }//-----
 
@@ -31,10 +58,12 @@ public class Cheese_Ranged : NetworkBehaviour {
     private void Attack()
     {
 
-        if (joyButton.Pressed && Time.time > fl_next_shot_time)
+        if (joyButton.Pressed && Time.time > fl_next_shot_time) //&& PC._isPlayerWithinZone)
         {
             UpdateNextShotTime();
+            PlayerAnim.SetBool("bl_eating", true);
             CmdFireBullet(gameObject.transform.rotation);
+            
         }
     }//-----
 
@@ -45,8 +74,9 @@ public class Cheese_Ranged : NetworkBehaviour {
     {
         // Create a bullet on the server and reset the shot timer
         var _bullet = Instantiate(go_projectile, SpawnPoint.transform.position, _qt_rotation);
-
+        var tShooter = _bullet.GetComponent<CheeseProjectile>().Shooter = netId;
         NetworkServer.Spawn(_bullet); // The object to spawn must be specified in the NW Manager
+        print("NetworkID = " + tShooter);
     }//-----
 
 

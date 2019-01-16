@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 5
+  PC: {fileID: 114017082273971348, guid: 3b3d6ad4a10f2fe4681fcc33d3e80fc5, type: 2}
   CheeseExplosion: {fileID: 193104, guid: c2f28a236b0696a4f90a994422019577, type: 2}
 --- !u!198 &198161227010653678
 ParticleSystem:

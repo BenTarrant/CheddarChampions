@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class CheeseProjectile : MonoBehaviour {
+public class CheeseProjectile : NetworkBehaviour {
 
     public float range = 10;
     public float speed = 20;
     public float damage = 1;
     private Rigidbody rb_bullet;
 
-	// Use this for initialization
-	void Start () {
+    [SyncVar]
+    public NetworkInstanceId Shooter;
+
+    // Use this for initialization
+    void Start () {
 
         Destroy(gameObject, range / speed);
 
@@ -21,7 +25,6 @@ public class CheeseProjectile : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-
         print("hit cheese");
         other.gameObject.SendMessage("Damage", damage, SendMessageOptions.DontRequireReceiver);
 

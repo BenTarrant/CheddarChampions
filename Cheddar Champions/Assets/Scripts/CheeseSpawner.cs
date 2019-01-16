@@ -3,37 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class CheeseSpawner : NetworkBehaviour {
+public class CheeseSpawner : NetworkBehaviour
+{
 
 
-    public GameObject BigCheese;
+    public GameObject BigCheese; // Flag
     public int numberOfCheese;
-    public Transform[] spawnPoints;
+    public Transform spawnPoint; // Where you want it to spawn (transform)
 
-    public void Start()
-    {
-
-
-    }
     public override void OnStartServer()
     {
         base.OnStartServer();
 
-        for (int i = 0; i < numberOfCheese; i++)
-        {
-            int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+        GameObject cheese = (GameObject)Instantiate(BigCheese, spawnPoint.position, spawnPoint.rotation);
 
-            GameObject cheese = (GameObject)Instantiate(BigCheese, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        NetworkServer.Spawn(cheese);
 
-            NetworkServer.Spawn(cheese);
-
-        }
-        
     }
-
-    // Update is called once per frame
-    void Update () {
-
-		
-	}
 }
+        
+    
