@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Destroyer : MonoBehaviour
 {
-
-    void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        print("Removing duplicate door");
-        Destroy(gameObject);
+        Destroy(gameObject, 5f);
     }
 }

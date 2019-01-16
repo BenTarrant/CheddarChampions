@@ -75,6 +75,8 @@ GameObject:
   - component: {fileID: 4219762350718380}
   - component: {fileID: 198589223456649146}
   - component: {fileID: 199965541671151700}
+  - component: {fileID: 114515828971311374}
+  - component: {fileID: 114439016339565276}
   m_Layer: 0
   m_Name: FrrezeShieldYellow
   m_TagString: Untagged
@@ -424,6 +426,49 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114439016339565276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273751814214628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 87
+    i1: 184
+    i2: 215
+    i3: 96
+    i4: 254
+    i5: 145
+    i6: 95
+    i7: 36
+    i8: 25
+    i9: 59
+    i10: 43
+    i11: 51
+    i12: 127
+    i13: 202
+    i14: 148
+    i15: 4
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114515828971311374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273751814214628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f79cfbb2c679f042b4437a07f8be532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198464242929875028
 ParticleSystem:
   m_ObjectHideFlags: 1

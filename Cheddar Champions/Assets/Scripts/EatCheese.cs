@@ -5,26 +5,25 @@ using UnityEngine.Networking;
 
 public class EatCheese : NetworkBehaviour
 {
+    [SyncVar]
     public float Health = 5f;
+
     public GameObject CheeseExplosion;
-    public MousePlayerController PC;
 
-    public void Start()
+    // ----------------------------------------------------------------------
+    private void Update()
     {
+        if (Health < 2) GetComponent<Renderer>().material.color = Color.red;
+        if (Health < 1) NetworkServer.Destroy(gameObject);
+    }//-----
 
-    }
-
-    public void BeingEaten(int _damage_amount)
+    // ----------------------------------------------------------------------
+    public void Damage(int _in_damage_taken)
     {
-        Health -= _damage_amount;
+        if (!isServer) return;
         GameManager.sGM.score++;
+        Health -= _in_damage_taken;
+        
+    }//-----
 
-        if (Health <= 0) // if the health drops below 0
-        {
-            Instantiate(CheeseExplosion, transform.position, Quaternion.identity); // create explosion
-            transform.position = new Vector3(0, -15, 0);
-
-            NetworkServer.Destroy(gameObject);
-        }
-    }
-}
+}//==========

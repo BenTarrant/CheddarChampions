@@ -8,7 +8,7 @@ public class MousePlayerController : NetworkBehaviour
 {
     // PLAYER MOVEMENT VARIABLES ------------
     public float moveSpeed = 4f;
-    public Joystick joystick;
+    private Joystick joystick;
     public bool isGrounded = false;
     private CharacterController _controller;
     Animator PlayerAnim;
@@ -18,7 +18,7 @@ public class MousePlayerController : NetworkBehaviour
     public bool _isPlayerEating = false;
     public GameObject cheeseBullet;
     protected JoyButton joyButton;
-   
+
     // COOLDOWN -----------------------------
 
 
@@ -37,13 +37,7 @@ public class MousePlayerController : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        _isPlayerWithinZone = false;
-        Camera.main.GetComponentInParent<CameraFollow>().setTarget(gameObject.transform);
-        PlayerAnim = GetComponent<Animator>();
-        gameObject.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
-        _controller = GetComponent<CharacterController>();
 
-        joyButton = FindObjectOfType<JoyButton>();
 
     }
 
@@ -53,10 +47,19 @@ public class MousePlayerController : NetworkBehaviour
         if (!isLocalPlayer)
         {
             print("not local Player");
+            transform.Find("MOUSE_SKIN").gameObject.GetComponent<Renderer>().material.color = Color.red;
             return;
         }
 
-        joystick = FindObjectOfType<Joystick>();
+            _isPlayerWithinZone = false;
+            Camera.main.GetComponentInParent<CameraFollow>().setTarget(gameObject.transform);
+            PlayerAnim = GetComponent<Animator>();
+            gameObject.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
+            _controller = GetComponent<CharacterController>();
+            joystick = FindObjectOfType<Joystick>();
+
+
+
     }
 
     // Update is called once per frame
@@ -93,11 +96,21 @@ public class MousePlayerController : NetworkBehaviour
                 moveVector += Physics.gravity * Time.deltaTime;
             }
 
-            if (joyButton.Pressed && _isPlayerWithinZone)
-            {
-                FireCheese();
-                print("fire bullet");
-            }
+            //if (joyButton.Pressed) //&& _isPlayerWithinZone)
+            //{
+
+            //    print("firing bullet");
+
+            //    print("Am I a Server: " + isServer + " Am I a Client: " + isClient + " Do I have Authority: " + hasAuthority + " Am I a Local Player: " + isLocalPlayer);
+            //}
+
+            //if (Input.GetKeyDown(KeyCode.Z))
+            //{
+            //    CmdFireCheese();
+            //    print("firing bullet");
+
+            //    print("Am I a Server: " + isServer + " Am I a Client: " + isClient + " Do I have Authority: " + hasAuthority + " Am I a Local Player: " + isLocalPlayer);
+            //}
 
             if (PlayerAnim.GetCurrentAnimatorStateInfo(0).IsName("Eating"))
             {
@@ -110,7 +123,6 @@ public class MousePlayerController : NetworkBehaviour
 
             if (_isPlayerWithinZone == true)
             {
-                print("in Zone");
             }
         }
     }
@@ -137,11 +149,7 @@ public class MousePlayerController : NetworkBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Trap")
-        {
-            print("Hit Trap");
-            TakeDamage();
-        }
+
 
         if (other.tag == "Cheese") // if the player triggers
         {
@@ -166,9 +174,21 @@ public class MousePlayerController : NetworkBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.name == "CheeseBullet(Clone)")
+        {
+            print("Hit");
+            TakeDamage();
+        }
+    }
+
     void TakeDamage()
     {
-        Instantiate(slowZone, transform.position, transform.rotation);
+        GameObject SlowZone = (GameObject)Instantiate(slowZone, transform.position, transform.rotation);
+
+        NetworkServer.Spawn(SlowZone);
+
     }
 
     void InZone()
@@ -176,14 +196,4 @@ public class MousePlayerController : NetworkBehaviour
         _isPlayerWithinZone = true;
     }
 
-    public void FireCheese()
-    {
-        PlayerAnim.SetBool("bl_eating", true);
-
-        print("firing cheese bullet");
-
-        Instantiate(cheeseBullet, transform.position, transform.rotation);
-
-        print("resetting cooldown");
-    }
 }

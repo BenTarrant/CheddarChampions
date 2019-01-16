@@ -8,6 +8,7 @@ public class CheeseSpawner : NetworkBehaviour {
 
     public GameObject BigCheese;
     public int numberOfCheese;
+    public Transform[] spawnPoints;
 
     public void Start()
     {
@@ -20,9 +21,9 @@ public class CheeseSpawner : NetworkBehaviour {
 
         for (int i = 0; i < numberOfCheese; i++)
         {
-            //Vector3 spawnPosition = gameObject.transform.position;
+            int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
-            GameObject cheese = (GameObject)Instantiate(BigCheese, transform.position, transform.rotation);
+            GameObject cheese = (GameObject)Instantiate(BigCheese, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 
             NetworkServer.Spawn(cheese);
 

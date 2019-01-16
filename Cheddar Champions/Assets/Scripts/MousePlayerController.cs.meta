@@ -3,7 +3,10 @@ guid: 821c26e9d0809a3439edbbe3dbef15e4
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cheeseBullet: {instanceID: 0}
+  - slowZone: {instanceID: 0}
+  - material: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

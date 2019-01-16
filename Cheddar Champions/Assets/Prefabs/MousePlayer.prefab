@@ -68,7 +68,6 @@ GameObject:
   - component: {fileID: 4024992252377400}
   - component: {fileID: 143556897540858698}
   - component: {fileID: 114858151315048550}
-  - component: {fileID: 114115044927549604}
   - component: {fileID: 114838848341715584}
   - component: {fileID: 95266201657033382}
   - component: {fileID: 114490519822782924}
@@ -621,19 +620,6 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!114 &114115044927549604
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1151202171176126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bfba725a113d3c42a8674d416ff3f6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pname: player
-  playerColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114167478709842198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -670,7 +656,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1151202171176126}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19294e1e9b93f3b4899fe8ee18527262, type: 3}
   m_Name: 
@@ -717,20 +703,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1151202171176126}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 821c26e9d0809a3439edbbe3dbef15e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
-  joystick: {fileID: 0}
   isGrounded: 0
   _isPlayerWithinZone: 0
   _isPlayerEating: 0
   cheeseBullet: {fileID: 1927656592964262, guid: 910e88a10a9015648af58aaa5cf7fe6d,
     type: 2}
-  eat_cooldown: 1
-  next_eat_time: 0
   slowZone: {fileID: 1273751814214628, guid: 57b8d760fe915f24193b2b337fca9404, type: 2}
   material: {fileID: 2100000, guid: 1bfad820fb2df7f4f90d247438ae01c7, type: 2}
   maxExtrusionAmount: 0.08

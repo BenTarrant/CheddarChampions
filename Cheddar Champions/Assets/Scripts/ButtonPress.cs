@@ -45,7 +45,7 @@ public class ButtonPress : NetworkBehaviour
 
         myController = myPlayer.GetComponent<MousePlayerController>();
 
-        myController.FireCheese();
+        //myController.CmdFireCheese();
         print("eat button pressed");
 
         //main.enabled = false;

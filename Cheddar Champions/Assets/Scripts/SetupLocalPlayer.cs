@@ -25,11 +25,12 @@ public class SetupLocalPlayer : NetworkBehaviour {
     {
 		if (isLocalPlayer)
         {
-            GetComponent<MousePlayerController>().enabled = true;
+            //
 
             
         }
 
+        GetComponent<MousePlayerController>().enabled = true;
         this.transform.position = new Vector3(Random.Range(5, -5) , Random.Range(0,0), Random.Range(5, -5));
 
         Renderer[] rends = GetComponentsInChildren<Renderer>();

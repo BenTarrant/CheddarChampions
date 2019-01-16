@@ -19,11 +19,11 @@ public class CheeseProjectile : MonoBehaviour {
 		
 	}
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
 
         print("hit cheese");
-        other.gameObject.SendMessage("BeingEaten", damage, SendMessageOptions.DontRequireReceiver);
+        other.gameObject.SendMessage("Damage", damage, SendMessageOptions.DontRequireReceiver);
 
         Destroy(gameObject);
     }
