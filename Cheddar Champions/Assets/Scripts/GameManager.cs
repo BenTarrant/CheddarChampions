@@ -3,55 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : NetworkBehaviour
 {
-    //public int Score; //Creates a reference for the score
-    public GameObject Crumbs; // reference for the cheese eating particle effect Game Object
+
+    public GameObject[] Podiums;
+    public GameObject[] Players;
+
+    int playerScore;
+
+    public Camera main;
+    public Camera win;
 
     [SyncVar]
-    public float timeLeft = 60f; // reference for the amount of time that's passed
+    public float timeLeft = 20f; // reference for the amount of time that's passed
 
     public Text Timertext; // reference the UI text
-    public Text BestScore; // reference for highscore in UI
-
-    public Text ScoreText; // reference the UI text
-    public int score; // interger reference for score
-    public int highScore = 0; // interger reference for highscore
-    string highScoreKey = "Best Score: "; // reference for string kept for player prefs
 
     void Start()
     {
-        score = 0;
-        timeLeft= 60;
-        highScore = PlayerPrefs.GetInt(highScoreKey);  //Get the highScore from player prefs if it is there, 0 otherwise.
-        BestScore.text = "Best: " + (highScore); // set the best time text to read as the highest score
+        timeLeft= 20;
     }
 
     void Update()
     {
-        if(ScoreText && Timertext != null)
+       Players = GameObject.FindGameObjectsWithTag("Player");
+
+        if (Timertext != null)
         {
-            ScoreText.text = "Score: " + score.ToString();
 
             timeLeft -= Time.deltaTime; //time left minus delta time
             Timertext.text = "Time: " + Mathf.Round(timeLeft); // display the time left in referenced UI text
         }
+
+        if (timeLeft <= 0)
+        {
+            EndGame();
+        }
+
     }
 
 
-    public void UpdateHighScore() // update high score function (called by the player when they enter the teleport)
+    public void EndGame()
     {
-        if (score > highScore) // if the score int is higher than the currently stored high score int
+        Timertext.enabled = false;
+        StartCoroutine(Allocate());
+    }
+
+   IEnumerator Allocate()
+   {
+        print("Starting coroutine");
+        foreach (GameObject go in Players)
         {
-            PlayerPrefs.SetInt(highScoreKey, score); // set the high score key as the current score
-            PlayerPrefs.Save(); // ensure the player prefs are saved to be retrieved on reload
+            playerScore = go.GetComponent<MousePlayerController>().score;
+            print("Player Score is: " + playerScore);
         }
 
-        else
-        {
-            
-        }
+
+
+        yield return null;
     }
 
 

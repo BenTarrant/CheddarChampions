@@ -14,20 +14,25 @@ public class CheeseProjectile : NetworkBehaviour {
     public NetworkInstanceId Shooter;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         Destroy(gameObject, range / speed);
 
         rb_bullet = GetComponent<Rigidbody>();
         rb_bullet.velocity = speed * transform.TransformDirection(Vector3.forward);
-		
-	}
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        print("hit cheese");
-        other.gameObject.SendMessage("Damage", damage, SendMessageOptions.DontRequireReceiver);
+        if (other.tag == "Cheese")
+        {
+            print("hit cheese");
+            other.gameObject.SendMessage("Damage", damage, SendMessageOptions.DontRequireReceiver);
+        }
 
         Destroy(gameObject);
     }
 }
+

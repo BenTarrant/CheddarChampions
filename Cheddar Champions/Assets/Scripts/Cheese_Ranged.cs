@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class Cheese_Ranged : NetworkBehaviour {
 
     public GameObject go_projectile;
-    public float fl_cool_down = 0.3f;
+    public float fl_cool_down = 0.5f;
     private float fl_next_shot_time;
 
     protected JoyButton joyButton;
@@ -41,13 +42,15 @@ public class Cheese_Ranged : NetworkBehaviour {
             }
 
 
-            if (PlayerAnim.GetCurrentAnimatorStateInfo(0).IsName("Eating"))
+            
+            if (PC._isPlayerWithinZone)
             {
+                joyButton.GetComponent<Image>().color = Color.yellow;
+            }
 
-                if (PlayerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
-                {
-                    PlayerAnim.SetBool("bl_eating", false);
-                }
+            if (!PC._isPlayerWithinZone)
+            {
+                joyButton.GetComponent<Image>().color = Color.white;
             }
 
 
@@ -79,13 +82,13 @@ public class Cheese_Ranged : NetworkBehaviour {
         print("NetworkID = " + tShooter);
     }//-----
 
-
-    // ----------------------------------------------------------------------
     void UpdateNextShotTime()
     {
         if (isLocalPlayer)
             fl_next_shot_time = Time.time + fl_cool_down;
     }//-----
+     // ----------------------------------------------------------------------
+
 
 }//========
 

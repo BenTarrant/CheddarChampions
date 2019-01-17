@@ -16,8 +16,13 @@ public class MousePlayerController : NetworkBehaviour
     // CHEESE EATING VARIABLES --------------
     public bool _isPlayerWithinZone;
     public bool _isPlayerEating = false;
-    public GameObject cheeseBullet;
+
+    //public GameObject go_projectile;
+    public float fl_cool_down = 0.3f;
+    private float fl_next_shot_time;
+
     protected JoyButton joyButton;
+    public GameObject SpawnPoint;
 
     // COOLDOWN -----------------------------
 
@@ -28,6 +33,16 @@ public class MousePlayerController : NetworkBehaviour
     // PLAYER SCORE -------------------------
     public int score;
     public Text ScoreText; // reference the UI text
+
+    public Text Timertext; // reference the UI text
+    public Text BestScore; // reference for highscore in UI
+
+    public int highScore = 0; // interger reference for highscore
+    string highScoreKey = "Best Score: "; // reference for string kept for player prefs
+
+    //TIMER ---------------------------------
+    [SyncVar]
+    public float timeLeft = 60f; // reference for the amount of time that's passed
 
     // Variables for extrusion --------------
     public Material material;
@@ -45,7 +60,8 @@ public class MousePlayerController : NetworkBehaviour
     {
 
         score = 0;
-
+        highScore = PlayerPrefs.GetInt(highScoreKey);  //Get the highScore from player prefs if it is there, 0 otherwise.
+        BestScore.text = "Best: " + (highScore); // set the best time text to read as the highest score
 
         if (!isLocalPlayer)
         {
@@ -60,14 +76,23 @@ public class MousePlayerController : NetworkBehaviour
             gameObject.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
             _controller = GetComponent<CharacterController>();
             joystick = FindObjectOfType<Joystick>();
+            joyButton = FindObjectOfType<JoyButton>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (isLocalPlayer)
         {
+
+            if (ScoreText != null)
+            {
+                ScoreText.text = "Score: " + score.ToString();
+
+            }
+
             if (PlayerAnim == null)
             {
                 PlayerAnim = GetComponent<Animator>();
@@ -90,22 +115,27 @@ public class MousePlayerController : NetworkBehaviour
                 _controller.Move(moveVector * moveSpeed * Time.deltaTime);
             }
 
+
             if (isGrounded == false)
             {
                 moveVector += Physics.gravity * Time.deltaTime;
             }
 
-
-            if (_isPlayerWithinZone == true)
+            if (ScoreText == null)
             {
+                Text theplayerScore = GameObject.Find("ScoreText").GetComponent<Text>();
+                ScoreText = theplayerScore;
             }
 
             if (ScoreText != null)
             {
                 ScoreText.text = "Score: " + score.ToString();
             }
+
         }
     }
+
+
 
     //isGrounded--------------------------------------------------------------------------------------------------------------------------
     void GroundCheck()
@@ -171,9 +201,27 @@ public class MousePlayerController : NetworkBehaviour
 
     }
 
-    void InZone()
+    public void AddScore()
     {
-        _isPlayerWithinZone = true;
+        if (isLocalPlayer)
+        {
+            score++;
+        }
+
+    }
+
+    public void UpdateHighScore() // update high score function (called by the player when they enter the teleport)
+    {
+        if (score > highScore) // if the score int is higher than the currently stored high score int
+        {
+            PlayerPrefs.SetInt(highScoreKey, score); // set the high score key as the current score
+            PlayerPrefs.Save(); // ensure the player prefs are saved to be retrieved on reload
+        }
+
+        else
+        {
+
+        }
     }
 
 }

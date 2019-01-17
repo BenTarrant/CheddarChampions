@@ -72,7 +72,7 @@ MonoBehaviour:
     i14: 179
     i15: 195
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114663823281206350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,10 +84,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b278f2ad87dcc44952ff1f5a84017e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Crumbs: {fileID: 1661644869239872, guid: 7bec52361a229364fab72dff895d37b9, type: 2}
+  Podiums:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Players: []
+  main: {fileID: 0}
+  win: {fileID: 0}
   timeLeft: 60
   Timertext: {fileID: 0}
-  BestScore: {fileID: 0}
-  ScoreText: {fileID: 0}
-  score: 0
-  highScore: 0
