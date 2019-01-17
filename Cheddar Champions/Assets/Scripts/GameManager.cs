@@ -25,7 +25,7 @@ public class GameManager : NetworkBehaviour
 
     void Start()
     {
-        timeLeft= 30;
+        timeLeft= 90;
     }
 
     void Update()
