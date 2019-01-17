@@ -12,28 +12,27 @@ public class MousePlayerController : NetworkBehaviour
     public bool isGrounded = false;
     private CharacterController _controller;
     Animator PlayerAnim;
+    public Material notlocal;
 
     // CHEESE EATING VARIABLES --------------
     public bool _isPlayerWithinZone;
     public bool _isPlayerEating = false;
 
     //public GameObject go_projectile;
-    public float fl_cool_down = 0.3f;
+    public float fl_cool_down = 0.5f;
     private float fl_next_shot_time;
 
     protected JoyButton joyButton;
     public GameObject SpawnPoint;
 
-    // COOLDOWN -----------------------------
-
-
     // PLAYER FREEZING ----------------------
     public GameObject slowZone;
 
     // PLAYER SCORE -------------------------
+    [SyncVar]
     public int score;
     public Text ScoreText; // reference the UI text
-
+    public GameObject PlayerScoreText;
     public Text Timertext; // reference the UI text
     public Text BestScore; // reference for highscore in UI
 
@@ -46,14 +45,14 @@ public class MousePlayerController : NetworkBehaviour
 
     // Variables for extrusion --------------
     public Material material;
-    [Header("Extrusion Level")]
-    [Range(0, 0.08f)]
-    public float maxExtrusionAmount = 0.08f;
+    [Header("Max Extrusion Amount")]
+    [Range(0, 0.1f)] public float maxExtrusionAmount = 0f;
 
     public override void OnStartLocalPlayer()
     {
-
+        maxExtrusionAmount = 0f;
     }
+
 
     // Use this for initialization
     void Start()
@@ -65,19 +64,18 @@ public class MousePlayerController : NetworkBehaviour
 
         if (!isLocalPlayer)
         {
-            print("not local Player");
-            transform.Find("MOUSE_SKIN").gameObject.GetComponent<Renderer>().material.color = Color.red;
+            transform.Find("MOUSE_SKIN").gameObject.GetComponent<Renderer>().material = notlocal;
             return;
         }
 
-            _isPlayerWithinZone = false;
-            Camera.main.GetComponentInParent<CameraFollow>().setTarget(gameObject.transform);
-            PlayerAnim = GetComponent<Animator>();
-            gameObject.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
-            _controller = GetComponent<CharacterController>();
-            joystick = FindObjectOfType<Joystick>();
-            joyButton = FindObjectOfType<JoyButton>();
-
+        _isPlayerWithinZone = false;
+        Camera.main.GetComponentInParent<CameraFollow>().setTarget(gameObject.transform);
+        PlayerAnim = GetComponent<Animator>();
+        gameObject.GetComponent<NetworkAnimator>().SetParameterAutoSend(0, true);
+        _controller = GetComponent<CharacterController>();
+        joystick = FindObjectOfType<Joystick>();
+        joyButton = FindObjectOfType<JoyButton>();
+        PlayerScoreText.GetComponent<TextMesh>();
     }
 
     // Update is called once per frame
@@ -86,6 +84,7 @@ public class MousePlayerController : NetworkBehaviour
 
         if (isLocalPlayer)
         {
+            material.SetFloat("_Amount", maxExtrusionAmount);
 
             if (ScoreText != null)
             {
@@ -132,10 +131,115 @@ public class MousePlayerController : NetworkBehaviour
                 ScoreText.text = "Score: " + score.ToString();
             }
 
+            if (PlayerScoreText != null)
+            {
+                TextMesh t = (TextMesh)PlayerScoreText.GetComponent(typeof(TextMesh));
+                t.text = "" + score.ToString();
+            }
         }
     }
 
+    public void ConfrontMyScore()
+    {
+        if (isLocalPlayer)
+        {
+            GameObject confronted = null;
+            GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
 
+            if (allPlayers.Length != 1)
+            {
+                foreach (var go in allPlayers)
+                {
+                    if (!go.GetComponent<NetworkIdentity>().isLocalPlayer)
+                    {
+                        confronted = go;
+                    }
+                }
+
+                if (score > confronted.GetComponent<MousePlayerController>().score || score == confronted.GetComponent<MousePlayerController>().score)
+                {
+                    // I win.
+                    if (isServer)
+                    {
+                        RpcTeleportLosingPlayer(confronted);
+                        gameObject.transform.position = new Vector3(-5f, -35f, 8f);
+                        RpcTeleportMySelfWinning();
+                    }
+
+                    else
+                    {
+                        CmdTeleportLosingPlayer(confronted);
+                        CmdTeleportMySelfWinning();
+                    }
+                }
+
+                else if (score < confronted.GetComponent<MousePlayerController>().score)
+                {
+                    // I lose
+                    if (isServer)
+                    {
+                        confronted.GetComponent<MousePlayerController>().RpcTeleportWinningPlayer(confronted);
+                        gameObject.transform.position = new Vector3(-4.65f, -36.56f, 1);
+                        RpcTeleportMySelfLosing();
+                    }
+
+                    else
+                    {
+                        confronted.GetComponent<MousePlayerController>().CmdTeleportWinningPlayer(confronted);
+                        CmdTeleportMySelfLosing();
+                    }
+                }
+            }
+        }
+    }
+
+    [Command]
+    void CmdTeleportMySelfWinning()
+    {
+        gameObject.transform.position = new Vector3(-5f, -35f, 8f);
+    }
+
+    [Command]
+    void CmdTeleportMySelfLosing()
+    {
+        gameObject.transform.position = new Vector3(-4.65f, -36.56f, 1);
+    }
+
+    [ClientRpc]
+    void RpcTeleportMySelfWinning()
+    {
+        gameObject.transform.position = new Vector3(-5f, -35f, 8f);
+    }
+
+    [ClientRpc]
+    void RpcTeleportMySelfLosing()
+    {
+        gameObject.transform.position = new Vector3(-4.65f, -36.56f, 1);
+    }
+
+    [Command]
+    void CmdTeleportLosingPlayer(GameObject other)
+    {
+        other.transform.position = new Vector3(-4.65f, -36.56f, 1);
+    }
+
+    [ClientRpc]
+    void RpcTeleportLosingPlayer(GameObject other)
+    {
+        other.transform.position = new Vector3(-4.65f, -36.56f, 1);
+    }
+
+    [Command]
+    void CmdTeleportWinningPlayer(GameObject other)
+    {
+        other.transform.position = new Vector3(-5f, -35f, 8f);
+    }
+
+    [ClientRpc]
+    void RpcTeleportWinningPlayer(GameObject other)
+    {
+        other.transform.position = new Vector3(-5f, -35f, 8f);
+    }
 
     //isGrounded--------------------------------------------------------------------------------------------------------------------------
     void GroundCheck()
@@ -175,8 +279,15 @@ public class MousePlayerController : NetworkBehaviour
         if (other.tag == "Cheese") // if the player triggers
         {
             _isPlayerWithinZone = true; // set boolean to true
-        }
 
+            if (joyButton.Pressed && Time.time > fl_next_shot_time) //&& PC._isPlayerWithinZone)
+            {
+                score++;
+                maxExtrusionAmount += 0.002f;
+                UpdateNextShotTime();
+                UpdateHighScore();
+            }
+        }
     }
 
     void OnTriggerExit(Collider other) // when trigger leaves collision
@@ -201,14 +312,6 @@ public class MousePlayerController : NetworkBehaviour
 
     }
 
-    public void AddScore()
-    {
-        if (isLocalPlayer)
-        {
-            score++;
-        }
-
-    }
 
     public void UpdateHighScore() // update high score function (called by the player when they enter the teleport)
     {
@@ -223,5 +326,11 @@ public class MousePlayerController : NetworkBehaviour
 
         }
     }
+
+    void UpdateNextShotTime()
+    {
+        if (isLocalPlayer)
+            fl_next_shot_time = Time.time + fl_cool_down;
+    }//-----
 
 }

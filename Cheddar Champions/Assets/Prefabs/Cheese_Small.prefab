@@ -45,6 +45,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1611072483100944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4311659005481242}
+  - component: {fileID: 108947185079816766}
+  m_Layer: 0
+  m_Name: Point light (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1718713608337302
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,6 +74,9 @@ GameObject:
   - component: {fileID: 64800755925319532}
   - component: {fileID: 65914031307388888}
   - component: {fileID: 114199484401845126}
+  - component: {fileID: 114705453532198652}
+  - component: {fileID: 114420599859558786}
+  - component: {fileID: 208776189148873452}
   m_Layer: 10
   m_Name: Cheese_Small
   m_TagString: Cheese
@@ -76,9 +95,23 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 4726995999655994}
+  - {fileID: 4311659005481242}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 114.212006, z: 0}
+--- !u!4 &4311659005481242
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1611072483100944}
+  m_LocalRotation: {x: -0, y: -0.8396759, z: -0, w: 0.5430877}
+  m_LocalPosition: {x: 9.3, y: 5.5, z: 12.7}
+  m_LocalScale: {x: 4.9626985, y: 5.078, z: 4.653798}
+  m_Children: []
+  m_Father: {fileID: 4186485116003922}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4726995999655994
 Transform:
   m_ObjectHideFlags: 1
@@ -174,6 +207,43 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.626744, y: 4.925079, z: 6.3119183}
   m_Center: {x: 9.5085335, y: 1.9999983, z: 12.077044}
+--- !u!108 &108947185079816766
+Light:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1611072483100944}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 1, g: 0.9538098, b: 0, a: 1}
+  m_Intensity: 0.7
+  m_Range: 6.45
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!114 &114199484401845126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -185,11 +255,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c611497f4341ff64c94597709589a139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 5
+  Health: 2
+  PCs: []
   CheeseExplosion: {fileID: 193104, guid: c2f28a236b0696a4f90a994422019577, type: 2}
-  Players: []
-  Client: {fileID: 0}
-  Host: {fileID: 0}
+--- !u!114 &114420599859558786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718713608337302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114705453532198652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718713608337302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 243
+    i1: 216
+    i2: 112
+    i3: 219
+    i4: 11
+    i5: 45
+    i6: 122
+    i7: 212
+    i8: 138
+    i9: 10
+    i10: 62
+    i11: 174
+    i12: 202
+    i13: 194
+    i14: 251
+    i15: 246
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!198 &198410078641955148
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -9289,3 +9410,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!208 &208776189148873452
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718713608337302}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.6370001, y: 2.463, z: 2.6490002}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 9.593, y: 2, z: 11.93}
+  m_TimeToStationary: 0.5

@@ -8,7 +8,16 @@ public class Bilboarding : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        this.transform.LookAt(Camera.main.transform.position);
-        this.transform.Rotate(new Vector3(0, 180, 0));
+        if(Camera.main == null)
+        {
+            this.enabled = false;
+        }
+
+        if (Camera.main != null)
+        {
+            this.transform.LookAt(Camera.main.transform.position);
+            this.transform.Rotate(new Vector3(0, 180, 0));
+        }
+
 	}
 }

@@ -39,8 +39,6 @@ public class EatCheese : NetworkBehaviour
     public void Damage(int _in_damage_taken)
     {
         if (!isServer) return;
-        singlePC = GameObject.FindObjectOfType(typeof(MousePlayerController)) as MousePlayerController;
-        singlePC.AddScore();
        Health -= _in_damage_taken;
 
     }

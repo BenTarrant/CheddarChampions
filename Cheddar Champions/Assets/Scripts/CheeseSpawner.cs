@@ -7,15 +7,14 @@ public class CheeseSpawner : NetworkBehaviour
 {
 
 
-    public GameObject BigCheese; // Flag
-    public int numberOfCheese;
+    public GameObject[] CheeseTypes;
     public Transform spawnPoint; // Where you want it to spawn (transform)
 
     public override void OnStartServer()
     {
         base.OnStartServer();
 
-        GameObject cheese = (GameObject)Instantiate(BigCheese, spawnPoint.position, spawnPoint.rotation);
+        GameObject cheese = (GameObject)Instantiate(CheeseTypes[Random.Range(0, CheeseTypes.Length)], spawnPoint.position, spawnPoint.rotation);
 
         NetworkServer.Spawn(cheese);
 

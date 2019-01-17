@@ -8,7 +8,6 @@ using System;
 
 public class GameManager : NetworkBehaviour
 {
-
     public GameObject[] Podiums;
     public GameObject[] Players;
 
@@ -18,18 +17,20 @@ public class GameManager : NetworkBehaviour
     public Camera win;
 
     [SyncVar]
-    public float timeLeft = 20f; // reference for the amount of time that's passed
+    public float timeLeft = 60f; // reference for the amount of time that's passed
 
     public Text Timertext; // reference the UI text
+    public bool GameEnded = false;
+
 
     void Start()
     {
-        timeLeft= 20;
+        timeLeft= 30;
     }
 
     void Update()
     {
-       Players = GameObject.FindGameObjectsWithTag("Player");
+        Players = GameObject.FindGameObjectsWithTag("Player");
 
         if (Timertext != null)
         {
@@ -40,9 +41,13 @@ public class GameManager : NetworkBehaviour
 
         if (timeLeft <= 0)
         {
-            EndGame();
+            GameEnded = true;
         }
 
+        if (GameEnded)
+        {
+            Players[0].GetComponent<MousePlayerController>().ConfrontMyScore();
+        }
     }
 
 
@@ -58,10 +63,10 @@ public class GameManager : NetworkBehaviour
         foreach (GameObject go in Players)
         {
             playerScore = go.GetComponent<MousePlayerController>().score;
-            print("Player Score is: " + playerScore);
+            go.transform.position = Podiums[0].transform.position;
+            
+            main.enabled = false;
         }
-
-
 
         yield return null;
     }

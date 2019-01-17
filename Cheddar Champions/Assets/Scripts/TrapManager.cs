@@ -5,6 +5,7 @@ using UnityEngine;
 public class TrapManager : MonoBehaviour {
 
     public int typeOfTrap;
+    public Animation playSpikes;
 
     // 1 = CUTTER
     // 2 = FIRE
@@ -26,11 +27,14 @@ public class TrapManager : MonoBehaviour {
             {
                 print("FIRE");
             }
+
+            if (typeOfTrap == 3)
+            {
+                playSpikes.Play();
+                print("NEEDLE");
+            }
         }
 
-        if (typeOfTrap == 3)
-        {
-            print("NEEDLE");
-        }
+        
     }
 }
