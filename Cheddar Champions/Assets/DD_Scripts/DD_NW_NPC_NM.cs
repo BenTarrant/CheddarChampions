@@ -7,23 +7,19 @@ using UnityEngine.AI;
 public class DD_NW_NPC_NM : NetworkBehaviour
 {
     // ----------------------------------------------------------------------
-    public enum en_states { Idle, Attack, Roam, Flee, Recharge };
+    public enum en_states { Idle, Attack, Roam, Flee };
     public en_states NPC_state = en_states.Idle;
 
     private Transform tx_target;
     private NavMeshAgent nm_agent;
     public int in_roam_range = 50;
 
-    [SyncVar]
-    public float fl_HP = 100;
-    public float fl_HP_Max = 100;
+    public Transform home;
     public float fl_chase_range = 2;
     public float fl_attack_range = 2;
+    public float fl_flee_range = 1;
 
-    // Combat
-    public float fl_cool_down = 1;
-    private float fl_next_shot_time;
-    public GameObject go_projectile;
+    Animator EnemyAnim;
 
     // Synch Position 
     [SyncVar]
@@ -40,7 +36,10 @@ public class DD_NW_NPC_NM : NetworkBehaviour
         if (isServer)
         {
             nm_agent = GetComponent<NavMeshAgent>();
+            EnemyAnim = GetComponent<Animator>();
+            EnemyAnim.SetBool("bl_enemywalk", false);
         }
+
     }//-----
 
 
@@ -50,6 +49,7 @@ public class DD_NW_NPC_NM : NetworkBehaviour
     {
         if (isServer)
         {
+            EnemyAnim.SetBool("bl_enemywalk", true);
             SwitchStates();
          
             // Synch Position on server
@@ -61,7 +61,7 @@ public class DD_NW_NPC_NM : NetworkBehaviour
             LocalPosUpdate();
         }
 
-        UpdateHP();
+        
 
     }//-----
 
@@ -91,20 +91,16 @@ public class DD_NW_NPC_NM : NetworkBehaviour
     // ----------------------------------------------------------------------
     private void SwitchStates()
     {
-        if (fl_HP < 30) NPC_state = en_states.Recharge;       
+         
 
         switch (NPC_state)
         {
             case en_states.Idle:
-                if (fl_HP > 40) NPC_state = en_states.Roam;
+                NPC_state = en_states.Roam;
                 break;
 
             case en_states.Roam:
                 RoamWorld();
-                break;
-
-            case en_states.Recharge:
-                RechargeHP();
                 break;
 
             case en_states.Attack:
@@ -112,6 +108,7 @@ public class DD_NW_NPC_NM : NetworkBehaviour
                 break;
 
             case en_states.Flee:
+                Flee();
                 break;
         }
     }//-----
@@ -129,15 +126,22 @@ public class DD_NW_NPC_NM : NetworkBehaviour
             NPC_state = en_states.Roam;
         }
 
+        if (Vector3.Distance(transform.position, tx_target.transform.position) < fl_flee_range)
+        {
+            Flee();
+        }
+
     }//-----
 
-
-    // ----------------------------------------------------------------------
-    private void RechargeHP()
+    IEnumerator Flee()
     {
-        nm_agent.SetDestination(GameObject.Find("Home").transform.position);
-        if (fl_HP > 60) NPC_state = en_states.Roam;
-    }//-----
+        nm_agent.SetDestination(home.position);
+
+        yield return new WaitForSeconds(3f);
+        NPC_state = en_states.Roam;
+    }
+
+    // ---------------------------------------------------------------------
 
 
 
@@ -153,7 +157,7 @@ public class DD_NW_NPC_NM : NetworkBehaviour
         }
         else
         {
-            NPC_state = en_states.Attack;
+            
         }
     }//-----
 
@@ -183,41 +187,13 @@ public class DD_NW_NPC_NM : NetworkBehaviour
             {
                 // Set the Target
                 tx_target = _go_nearest_player.transform;
+                NPC_state = en_states.Attack;
                 return true;
             }
         }
 
         return false;
     }//----- 
-
-
-
-    // ----------------------------------------------------------------------
-    private void UpdateHP()
-    {
-        GetComponentInChildren<TextMesh>().text = Mathf.Round(fl_HP).ToString();
-
-        if (fl_HP > fl_HP_Max) fl_HP = fl_HP_Max;
-        if (fl_HP < 0) NetworkServer.Destroy(gameObject);
-
-    }//-----
-
-    public void OnCollisionEnter(Collision col)
-    {
-        if(col.gameObject.tag == "Player")
-        {
-            NPC_state = en_states.Roam;
-        }
-    }
-
-    // ----------------------------------------------------------------------
-    public void Damage(float fl_damage)
-    {
-        fl_HP -= fl_damage;
-
-    }//----
-
-
 
 }//========
 

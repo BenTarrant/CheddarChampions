@@ -133,6 +133,11 @@ public class MousePlayerController : NetworkBehaviour
         {
             _isPlayerWithinZone = true; // set boolean to true
         }
+
+        if (other.gameObject.tag == "Enemy")
+        {
+            TakeDamage();
+        }
     }
 
     void OnTriggerStay(Collider other)
@@ -153,10 +158,7 @@ public class MousePlayerController : NetworkBehaviour
     }
     public void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Enemy")
-        {
-            TakeDamage();
-        }
+
     }
 
 

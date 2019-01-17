@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 114784355020818382}
   - component: {fileID: 114219713434749012}
   - component: {fileID: 114848731901481860}
+  - component: {fileID: 135117753910191726}
   m_Layer: 9
   m_Name: MousePlayer 1
   m_TagString: Player
@@ -579,12 +580,8 @@ MonoBehaviour:
   cheeseBullet: {fileID: 1927656592964262, guid: 910e88a10a9015648af58aaa5cf7fe6d,
     type: 2}
   slowZone: {fileID: 1273751814214628, guid: 57b8d760fe915f24193b2b337fca9404, type: 2}
-  timeLeft: 60
-  Timertext: {fileID: 0}
-  BestScore: {fileID: 0}
-  ScoreText: {fileID: 0}
   score: 0
-  highScore: 0
+  ScoreText: {fileID: 0}
   material: {fileID: 2100000, guid: 1bfad820fb2df7f4f90d247438ae01c7, type: 2}
   maxExtrusionAmount: 0.08
 --- !u!114 &114158667280154950
@@ -712,6 +709,18 @@ MonoBehaviour:
   fl_cool_down: 0.3
   SpawnPoint: {fileID: 1727540826216188}
   PC: {fileID: 114017082273971348}
+--- !u!135 &135117753910191726
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1635498388343956}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.16184065
+  m_Center: {x: 0, y: 0.106808364, z: 0.0091896355}
 --- !u!137 &137631946806267768
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
